@@ -11,7 +11,8 @@ CREATE TABLE produtos (
     nome VARCHAR(100) NOT NULL,
     descricao VARCHAR(100) NOT NULL,
     preco DECIMAL(10, 2) NOT NULL, 
-    categoria VARCHAR(100) NOT NULL
+    categoria VARCHAR(100) NOT NULL,
+    imagem VARCHAR(255)
 );
 
 INSERT INTO usuarios (nome, user, senha, nivel_acesso)

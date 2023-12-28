@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="assets/css/style.css">
       <link rel="stylesheet" href="assets/css/responsive.css">
-      <link rel="icon" href="assets/img/logo.png" />
+      <link rel="icon" href="assets/images/logo.png" />
       <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">

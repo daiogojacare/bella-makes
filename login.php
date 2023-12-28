@@ -6,8 +6,7 @@
   <title>Bella Makes</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <link rel="icon" href="assets/img/logo.png" />
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="icon" href="assets/images/logo.png" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet">
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
