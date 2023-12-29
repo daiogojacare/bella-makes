@@ -1,4 +1,3 @@
---------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
 /*--------------------------------------------------------------------- import Files ---------------------------------------------------------------------*/
 
 @import url(animate.min.css);
@@ -321,7 +320,7 @@ button {
 }
 
 .sidenav a:hover {
-    color: #f26522;
+    color: #874947;
 }
 
 .sidenav .closebtn {
@@ -429,18 +428,18 @@ button {
 .login_menu li {
     float: left;
     font-size: 16px;
-    color: #ffffff;
+    color: #874947;
     text-transform: uppercase;
     padding-left: 10px;
     padding-top: 4px;
 }
 
 .login_menu li a {
-    color: #ffffff;
+    color: #874947;
 }
 
 .login_menu li a:hover {
-    color: #f26522;
+    color: black;
 }
 
 .padding_10 {
@@ -486,7 +485,7 @@ a:hover {
 .banner_taital {
     width: 100%;
     font-size: 60px;
-    color: #ffffff;
+    color: #874947;
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;

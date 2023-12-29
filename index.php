@@ -1,3 +1,17 @@
+<?php
+include('forms/config.php');
+
+function getProdutosByCategoria($conexao, $categoria)
+{
+    $sql = "SELECT * FROM produtos WHERE categoria = '$categoria' ORDER BY id_produtos DESC";
+    $result = $conexao->query($sql);
+    return $result;
+}
+
+$categorias = array('Roupas', 'Maquiagens', 'Acessórios');
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
    <head>
@@ -13,7 +27,7 @@
       <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="assets/css/style.css">
       <link rel="stylesheet" href="assets/css/responsive.css">
-      <link rel="icon" href="assets/images/logo.png" />
+      <link rel="icon" href="assets/images/icon.png" />
       <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -22,6 +36,19 @@
       <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
       <link rel="stylesoeet" href="assets/css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+
+      <style>
+         .product_image {
+            text-align: center; 
+         }
+
+         .product_image img {
+            max-width: 100%; 
+            height: auto;
+            display: inline-block; 
+            vertical-align: middle; 
+         }
+      </style>
    </head>
    <body>
       <div class="banner_bg_main">
@@ -53,9 +80,9 @@
                   <div id="mySidenav" class="sidenav">
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                      <a href="index.php">Início</a>
-                     <a href="fashion.html">Fashion</a>
-                     <a href="electronic.html">Electronic</a>
-                     <a href="jewellery.html">Jewellery</a>
+                     <a href="roupas.php">Roupas</a>
+                     <a href="maquiagens.php">Maquiagens</a>
+                     <a href="acessorios.php">Acessórios</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="assets/images/toggle-icon.png"></span>
                   <div class="dropdown">
@@ -71,7 +98,7 @@
                      <div class="input-group">
                         <input type="text" class="form-control" placeholder="Pesquisar...">
                         <div class="input-group-append">
-                           <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                           <button class="btn btn-secondary" type="button" style="background-color: #874947; border-color: #874947 ">
                            <i class="fa fa-search"></i>
                            </button>
                         </div>
@@ -112,7 +139,7 @@
                      <div class="carousel-item active">
                         <div class="row">
                            <div class="col-sm-12">
-                              <h1 class="banner_taital">Conheça Agora<br>Bella Makes</h1>
+                              <h1 class="banner_taital">Conheça<br>Nossos Produtos</h1>
                               <div class="buynow_bt"><a href="#">Compre Agora</a></div>
                            </div>
                         </div>
@@ -120,7 +147,7 @@
                      <div class="carousel-item">
                         <div class="row">
                            <div class="col-sm-12">
-                              <h1 class="banner_taital">Conheça Agora<br>Bella Makes</h1>
+                              <h1 class="banner_taital">Conheça<br>Bella Makes</h1>
                               <div class="buynow_bt"><a href="#">Compre Agora</a></div>
                            </div>
                         </div>
@@ -128,7 +155,7 @@
                      <div class="carousel-item">
                         <div class="row">
                            <div class="col-sm-12">
-                              <h1 class="banner_taital">Conheça Agora<br>Bella Makes</h1>
+                              <h1 class="banner_taital">Conheça<br>Nossos Produtos</h1>
                               <div class="buynow_bt"><a href="#">Compre Agora</a></div>
                            </div>
                         </div>
@@ -144,423 +171,39 @@
             </div>
          </div>
       </div>
-      <div class="fashion_section">
-         <div id="main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <h1 class="fashion_taital">Roupas</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
+      <?php foreach ($categorias as $categoria) : ?>
+         <div class="fashion_section">
+               <div class="container">
+                  <h1 class="fashion_taital"><?php echo $categoria; ?></h1>
+                  <div class="fashion_section_2">
+                     <div class="row">
+                           <?php
+                           $produtos = getProdutosByCategoria($conexao, $categoria);
+                           if ($produtos->num_rows > 0) {
+                              while ($row = $produtos->fetch_assoc()) {
+                                 ?>
+                                 <div class="col-lg-4 col-sm-4">
+                                       <div class="box_main">
+                                          <h4 class="shirt_text"><?php echo $row['nome']; ?></h4>
+                                          <p class="price_text">Preço <span style="color: #262626;"><?php echo 'R$' . $row['preco']; ?></span></p>
+                                          <div class="product_image">
+                                             <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
+                                          </div>
+                                          <div class="btn_main">
+                                             <div class="buy_bt"><a href="#">Compre Agora</a></div>
+                                             <div class="seemore_bt"><a href="#">Mais</a></div>
+                                          </div>
+                                       </div>
                                  </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+                              <?php } ?>
+                           <?php } else { ?>
+                              <p>Nenhum produto encontrado nesta categoria.</p>
+                           <?php } ?>
                      </div>
                   </div>
                </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Roupas</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                        <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Roupas</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Man T -shirt</h4>
-                                 <p class="price_text">Preço  <span style="color: #262626;">R$30,00</span></p>
-                                 <div class="tshirt_img"><img src="assets/images/tshirt-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-            </a>
          </div>
-      </div>
-      <div class="fashion_section">
-         <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <h1 class="fashion_taital">Maquiagens</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Maquiagens</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Maquiagens</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Gloss</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$20,00</span></p>
-                                 <div class="electronic_img"><img src="assets/images/laptop-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <a class="carousel-control-prev" href="#electronic_main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#electronic_main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-            </a>
-         </div>
-      </div>
-      <div class="jewellery_section">
-         <div id="jewellery_main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <h1 class="fashion_taital">Acessórios</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Acessórios</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Acessórios</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Preço<span style="color: #262626;">R$100,00</span></p>
-                                 <div class="jewellery_img"><img src="assets/images/neklesh-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                    <div class="seemore_bt"><a href="#">Mais</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <a class="carousel-control-prev" href="#jewellery_main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#jewellery_main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-            </a>
-            <div class="loader_main">
-               <div class="loader"></div>
-            </div>
-         </div>
-      </div>
+      <?php endforeach; ?>
       <div class="footer_section layout_padding">
          <div class="container">
             <div class="footer_logo"><a href="index.php"><img src="assets/images/bellamakes.png" style="width: 20%; height: auto;"></a></div>
