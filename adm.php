@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('forms/config.php');
+
 if ((!isset($_SESSION['user']) == true) and (!isset($_SESSION['senha']) == true) and (!isset($_SESSION['nivel_acesso']) == 'adm')) {
     unset($_SESSION['user']);
     unset($_SESSION['senha']);
@@ -36,22 +37,33 @@ if (isset($_POST['submit'])) {
     $preco = limparDados($conexao, $_POST['preco']);
     $categoria = limparDados($conexao, $_POST['categoria']);
 
-    $verificarExistencia = mysqli_query($conexao, "SELECT * FROM produtos WHERE nome = '$nome'");
-    if (mysqli_num_rows($verificarExistencia) > 0) {
-        $mensagemCadastro = 'Produto já cadastrado.';
-    } else {
-        $result = mysqli_query($conexao, "INSERT INTO produtos(nome, descricao, preco, categoria) 
-            VALUES ('$nome', '$descricao', '$preco', '$categoria')");
+    if ($_FILES['imagem']['error'] == UPLOAD_ERR_OK && isset($_FILES['imagem']['tmp_name'])) {
+        $uploadDir = 'uploads/';
+        $uploadFile = $uploadDir . basename($_FILES['imagem']['name']);
 
-        if ($result) {
-            $mensagemCadastro = 'Produto cadastrado!';
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $uploadFile)) {
+            $verificarExistencia = mysqli_query($conexao, "SELECT * FROM produtos WHERE nome = '$nome'");
+            if (mysqli_num_rows($verificarExistencia) > 0) {
+                $mensagemCadastro = 'Produto já cadastrado.';
+            } else {
+                $result = mysqli_query($conexao, "INSERT INTO produtos(nome, descricao, preco, categoria, imagem) 
+                    VALUES ('$nome', '$descricao', '$preco', '$categoria', '$uploadFile')");
+
+                if ($result) {
+                    $mensagemCadastro = 'Produto cadastrado!';
+                } else {
+                    $mensagemCadastro = 'Erro ao cadastrar o produto.';
+                }
+            }
         } else {
-            $mensagemCadastro = 'Erro ao cadastrar o produto.';
+            $mensagemCadastro = 'Erro ao carregar a imagem.';
         }
+    } else {
+        $mensagemCadastro = 'Por favor, envie um arquivo de imagem válido.';
     }
 }
 
-$sql = "SELECT id_produtos, nome, descricao, preco, categoria FROM produtos";
+$sql = "SELECT id_produtos, nome, descricao, preco, categoria, imagem FROM produtos";
 $result = $conexao->query($sql);
 ?>
 
@@ -115,6 +127,7 @@ $result = $conexao->query($sql);
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Imagem</th>
                                 <th>Nome</th>
                                 <th>Descrição</th>
                                 <th>Preço</th>
@@ -126,6 +139,7 @@ $result = $conexao->query($sql);
                             <?php
                             while ($user_data = mysqli_fetch_assoc($result)) {
                                 echo "<tr>";
+                                echo "<td><img src='" . $user_data['imagem'] . "' alt='Imagem do Produto' style='max-width: 100px; max-height: 100px;'></td>";
                                 echo "<td>" . $user_data['nome'] . "</td>";
                                 echo "<td>" . $user_data['descricao'] . "</td>";
                                 echo "<td>" . $user_data['preco'] . "</td>";
@@ -163,16 +177,19 @@ $result = $conexao->query($sql);
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="form_cadastro" action="adm.php" method="POST">
+                        <form class="form_cadastro" action="adm.php" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="user_imagem">Imagem:</label>
+                                <input type="file" class="form-control-file" id="user_imagem" name="imagem" accept="image/*">
+                            </div>
                             <input type="text" class="form-control" id="user_nome" autocomplete="off" placeholder="Nome"
                                 name="nome" required>
                             <br>
                             <input type="text" class="form-control" id="user_descricao" autocomplete="off" placeholder="Descrição"
                                 name="descricao" required>
                             <br>
-                            <input type="text" class="form-control" id="user_preco" autocomplete="off"
-                                                placeholder="Preço" name="preco" required 
-                                                oninput="validarPreco(this)">
+                            <input type="text" class="form-control" id="user_preco" autocomplete="off" placeholder="Preço" name="preco" required 
+                                oninput="validarPreco(this)">
                             <br>
                             <select id="user_categoria" class="form-control" name="categoria" required>
                                 <option value="" disabled selected>Selecione a categoria</option>
