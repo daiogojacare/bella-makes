@@ -224,7 +224,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
     <div class="footer_section layout_padding">
         <div class="container">
             <div class="footer_logo"><a href="index.php"><img src="assets/images/bellamakes.png"
-                        style="width: 20%; height: auto;"></a></div>
+                        style="width: 200px; height: auto;"></a></div>
             <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
         </div>
     </div>
