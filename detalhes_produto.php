@@ -96,7 +96,7 @@ if (isset($_GET['id'])) {
                                 ?>
                                 <div class="col mb-5">
                                     <div class="card h-100">
-                                        <img class="card-img-top" src="<?php echo $produto_relacionado['imagem']; ?>"
+                                        <img class="card-img-bottom" src="<?php echo $produto_relacionado['imagem']; ?>"
                                             alt="Imagem do produto" />
                                         <div class="card-body p-4">
                                             <div class="text-center">

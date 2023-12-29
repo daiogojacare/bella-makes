@@ -251,58 +251,58 @@ $result = $conexao->query($sql);
     <script src="assets/js/adm.js"></script>
 
     <script>
-    function validarPreco(input) {
-        let regex = /^\d+(\.\d{1,2})?|\d+(,\d{1,2})?$/;
+        function validarPreco(input) {
+            let regex = /^\d+(\.\d{1,2})?|\d+(,\d{1,2})?$/;
 
-        input.value = input.value.replace(',', '.');
+            input.value = input.value.replace(',', '.');
 
-        if (!regex.test(input.value)) {
-            input.setCustomValidity('Por favor, insira um preço válido.');
-        } else {
-            input.setCustomValidity('');
-        }
-    }
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let inputPrice = document.getElementById('editProductPrice');
-
-        inputPrice.addEventListener('input', function() {
-            let enteredValue = this.value;
-
-            enteredValue = enteredValue.replace(',', '.');
-
-            if (isNaN(enteredValue) || (enteredValue.split('.').length > 2)) {
-                this.setCustomValidity('Por favor, insira um preço válido.');
+            if (!regex.test(input.value)) {
+                input.setCustomValidity('Por favor, insira um preço válido.');
             } else {
-                this.setCustomValidity('');
+                input.setCustomValidity('');
             }
-
-            this.value = enteredValue;
-        });
-    });
+        }
     </script>
     <script>
-    document.getElementById("openProductModal").addEventListener("click", function() {
-        $('#productModal').modal('show');
-    });
+        document.addEventListener('DOMContentLoaded', function () {
+            let inputPrice = document.getElementById('editProductPrice');
 
-    function openEditModal(id, name, description, price, category) {
-        document.getElementById("editProductID").value = id;
-        document.getElementById("editProductName").value = name;
-        document.getElementById("editProductDescription").value = description;
-        document.getElementById("editProductPrice").value = price;
-        document.getElementById("editProductCategory").value = category;
-        $('#editProductModal').modal('show');
-    }
+            inputPrice.addEventListener('input', function () {
+                let enteredValue = this.value;
 
-    document.getElementById("closeEditModal").addEventListener("click", function() {
-        $('#editProductModal').modal('hide');
-    });
+                enteredValue = enteredValue.replace(',', '.');
 
-    document.getElementById("closeModal").addEventListener("click", function() {
-        $('#productModal').modal('hide');
-    });
+                if (isNaN(enteredValue) || (enteredValue.split('.').length > 2)) {
+                    this.setCustomValidity('Por favor, insira um preço válido.');
+                } else {
+                    this.setCustomValidity('');
+                }
+
+                this.value = enteredValue;
+            });
+        });
+    </script>
+    <script>
+        document.getElementById("openProductModal").addEventListener("click", function () {
+            $('#productModal').modal('show');
+        });
+
+        function openEditModal(id, name, description, price, category) {
+            document.getElementById("editProductID").value = id;
+            document.getElementById("editProductName").value = name;
+            document.getElementById("editProductDescription").value = description;
+            document.getElementById("editProductPrice").value = price;
+            document.getElementById("editProductCategory").value = category;
+            $('#editProductModal').modal('show');
+        }
+
+        document.getElementById("closeEditModal").addEventListener("click", function () {
+            $('#editProductModal').modal('hide');
+        });
+
+        document.getElementById("closeModal").addEventListener("click", function () {
+            $('#productModal').modal('hide');
+        });
     </script>
 
 </body>

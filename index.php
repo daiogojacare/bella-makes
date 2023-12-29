@@ -41,16 +41,16 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
         media="screen">
 
     <style>
-    .product_image {
-        text-align: center;
-    }
+        .product_image {
+            text-align: center;
+        }
 
-    .product_image img {
-        max-width: 100%;
-        height: auto;
-        display: inline-block;
-        vertical-align: middle;
-    }
+        .product_image img {
+            max-width: 100%;
+            height: auto;
+            display: inline-block;
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -181,40 +181,45 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
             </div>
         </div>
     </div>
-    <?php foreach ($categorias as $categoria) : ?>
-    <div class="fashion_section">
-        <div class="container">
-            <h1 class="fashion_taital"><?php echo $categoria; ?></h1>
-            <div class="fashion_section_2">
-                <div class="row">
-                    <?php
-                           $produtos = getProdutosByCategoria($conexao, $categoria);
-                           if ($produtos->num_rows > 0) {
-                              while ($row = $produtos->fetch_assoc()) {
-                                 ?>
-                    <div class="col-lg-4 col-sm-4">
-                        <div class="box_main">
-                            <h4 class="shirt_text"><?php echo $row['nome']; ?></h4>
-                            <p class="price_text">Preço <span
-                                    style="color: #262626;"><?php echo 'R$' . $row['preco']; ?></span></p>
-                            <div class="product_image">
-                                <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
-                            </div>
-                            <div class="btn_main">
-                                <div class="buy_bt"><a href="#">Compre Agora</a></div>
-                                <div class="seemore_bt"><a
-                                        href="detalhes_produto.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
-                            </div>
-                        </div>
+    <?php foreach ($categorias as $categoria): ?>
+        <div class="fashion_section">
+            <div class="container">
+                <h1 class="fashion_taital">
+                    <?php echo $categoria; ?>
+                </h1>
+                <div class="fashion_section_2">
+                    <div class="row">
+                        <?php
+                        $produtos = getProdutosByCategoria($conexao, $categoria);
+                        if ($produtos->num_rows > 0) {
+                            while ($row = $produtos->fetch_assoc()) {
+                                ?>
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="box_main">
+                                        <h4 class="shirt_text">
+                                            <?php echo $row['nome']; ?>
+                                        </h4>
+                                        <p class="price_text">Preço <span style="color: #262626;">
+                                                <?php echo 'R$' . $row['preco']; ?>
+                                            </span></p>
+                                        <div class="product_image">
+                                            <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
+                                        </div>
+                                        <div class="btn_main">
+                                            <div class="buy_bt"><a href="#">Compre Agora</a></div>
+                                            <div class="seemore_bt"><a
+                                                    href="detalhes_produto.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <p>Nenhum produto encontrado nesta categoria.</p>
+                        <?php } ?>
                     </div>
-                    <?php } ?>
-                    <?php } else { ?>
-                    <p>Nenhum produto encontrado nesta categoria.</p>
-                    <?php } ?>
                 </div>
             </div>
         </div>
-    </div>
     <?php endforeach; ?>
     <div class="footer_section layout_padding">
         <div class="container">
@@ -237,13 +242,13 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
     <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="assets/js/custom.js"></script>
     <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
 
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
     </script>
 </body>
 
