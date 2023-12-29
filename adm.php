@@ -246,6 +246,8 @@ $result = $conexao->query($sql);
         </div>
     </section>
 
+    <script src="assets/js/adm.js"></script>
+    
     <script>
         function validarPreco(input) {
             let regex = /^\d+(\.\d{1,2})?|\d+(,\d{1,2})?$/;
