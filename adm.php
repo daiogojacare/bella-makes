@@ -180,16 +180,17 @@ $result = $conexao->query($sql);
                         <form class="form_cadastro" action="adm.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="user_imagem">Imagem:</label>
-                                <input type="file" class="form-control-file" id="user_imagem" name="imagem" accept="image/*">
+                                <input type="file" class="form-control-file" id="user_imagem" name="imagem"
+                                    accept="image/*">
                             </div>
                             <input type="text" class="form-control" id="user_nome" autocomplete="off" placeholder="Nome"
                                 name="nome" required>
                             <br>
-                            <input type="text" class="form-control" id="user_descricao" autocomplete="off" placeholder="Descrição"
-                                name="descricao" required>
+                            <input type="text" class="form-control" id="user_descricao" autocomplete="off"
+                                placeholder="Descrição" name="descricao" required>
                             <br>
-                            <input type="text" class="form-control" id="user_preco" autocomplete="off" placeholder="Preço" name="preco" required 
-                                oninput="validarPreco(this)">
+                            <input type="text" class="form-control" id="user_preco" autocomplete="off"
+                                placeholder="Preço" name="preco" required oninput="validarPreco(this)">
                             <br>
                             <select id="user_categoria" class="form-control" name="categoria" required>
                                 <option value="" disabled selected>Selecione a categoria</option>
@@ -224,7 +225,8 @@ $result = $conexao->query($sql);
                             </div>
                             <div class="form-group">
                                 <label for="editProductDescription">Descrição:</label>
-                                <input type="text" class="form-control" id="editProductDescription" name="descricao" required>
+                                <input type="text" class="form-control" id="editProductDescription" name="descricao"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="editProductPrice">Preço:</label>
@@ -247,60 +249,60 @@ $result = $conexao->query($sql);
     </section>
 
     <script src="assets/js/adm.js"></script>
-    
+
     <script>
-        function validarPreco(input) {
-            let regex = /^\d+(\.\d{1,2})?|\d+(,\d{1,2})?$/;
+    function validarPreco(input) {
+        let regex = /^\d+(\.\d{1,2})?|\d+(,\d{1,2})?$/;
 
-            input.value = input.value.replace(',', '.');
+        input.value = input.value.replace(',', '.');
 
-            if (!regex.test(input.value)) {
-                input.setCustomValidity('Por favor, insira um preço válido.');
+        if (!regex.test(input.value)) {
+            input.setCustomValidity('Por favor, insira um preço válido.');
+        } else {
+            input.setCustomValidity('');
+        }
+    }
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let inputPrice = document.getElementById('editProductPrice');
+
+        inputPrice.addEventListener('input', function() {
+            let enteredValue = this.value;
+
+            enteredValue = enteredValue.replace(',', '.');
+
+            if (isNaN(enteredValue) || (enteredValue.split('.').length > 2)) {
+                this.setCustomValidity('Por favor, insira um preço válido.');
             } else {
-                input.setCustomValidity('');
+                this.setCustomValidity('');
             }
-        }
+
+            this.value = enteredValue;
+        });
+    });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let inputPrice = document.getElementById('editProductPrice');
+    document.getElementById("openProductModal").addEventListener("click", function() {
+        $('#productModal').modal('show');
+    });
 
-            inputPrice.addEventListener('input', function() {
-                let enteredValue = this.value;
+    function openEditModal(id, name, description, price, category) {
+        document.getElementById("editProductID").value = id;
+        document.getElementById("editProductName").value = name;
+        document.getElementById("editProductDescription").value = description;
+        document.getElementById("editProductPrice").value = price;
+        document.getElementById("editProductCategory").value = category;
+        $('#editProductModal').modal('show');
+    }
 
-                enteredValue = enteredValue.replace(',', '.');
+    document.getElementById("closeEditModal").addEventListener("click", function() {
+        $('#editProductModal').modal('hide');
+    });
 
-                if (isNaN(enteredValue) || (enteredValue.split('.').length > 2)) {
-                    this.setCustomValidity('Por favor, insira um preço válido.');
-                } else {
-                    this.setCustomValidity('');
-                }
-
-                this.value = enteredValue;
-            });
-        });
-    </script>
-    <script>
-        document.getElementById("openProductModal").addEventListener("click", function () {
-            $('#productModal').modal('show');
-        });
-
-        function openEditModal(id, name, description, price, category) {
-            document.getElementById("editProductID").value = id;
-            document.getElementById("editProductName").value = name;
-            document.getElementById("editProductDescription").value = description;
-            document.getElementById("editProductPrice").value = price;
-            document.getElementById("editProductCategory").value = category;
-            $('#editProductModal').modal('show');
-        }
-
-        document.getElementById("closeEditModal").addEventListener("click", function () {
-            $('#editProductModal').modal('hide');
-        });
-
-        document.getElementById("closeModal").addEventListener("click", function () {
-            $('#productModal').modal('hide');
-        });
+    document.getElementById("closeModal").addEventListener("click", function() {
+        $('#productModal').modal('hide');
+    });
     </script>
 
 </body>
