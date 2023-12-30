@@ -14,7 +14,9 @@ if (isset($_GET['id'])) {
         $sql_produtos_relacionados = "SELECT * FROM produtos WHERE categoria = '$categoria' AND id_produtos != '$produto_id' LIMIT 4";
         $result_produtos_relacionados = $conexao->query($sql_produtos_relacionados);
 
+        $produto_categoria = $produto['categoria'];
         ?>
+
         <!DOCTYPE html>
         <html lang="pt-br">
 
@@ -39,10 +41,18 @@ if (isset($_GET['id'])) {
                         aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Início</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!">Roupas</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!">Maquiagens</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!">Acessórios</a></li>
+                            <li class="nav-item"><a
+                                    class="nav-link <?php echo ($produto_categoria === 'Início') ? 'active' : ''; ?>"
+                                    href="index.php">Início</a></li>
+                            <li class="nav-item"><a
+                                    class="nav-link <?php echo ($produto_categoria === 'Roupas') ? 'active' : ''; ?>"
+                                    href="#!">Roupas</a></li>
+                            <li class="nav-item"><a
+                                    class="nav-link <?php echo ($produto_categoria === 'Maquiagens') ? 'active' : ''; ?>"
+                                    href="#!">Maquiagens</a></li>
+                            <li class="nav-item"><a
+                                    class="nav-link <?php echo ($produto_categoria === 'Acessórios') ? 'active' : ''; ?>"
+                                    href="#!">Acessórios</a></li>
                         </ul>
                         <form class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
