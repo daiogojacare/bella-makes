@@ -23,7 +23,7 @@ if (isset($_POST['submit']) && !empty($_POST['user']) && !empty($_POST['senha'])
         } else {
             $_SESSION['user'] = $user;
             $_SESSION['senha'] = $senha;
-            header('Location: ../index.php');
+            header('Location: ../indexuser.php');
         }
     }
 } else {

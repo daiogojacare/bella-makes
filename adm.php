@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include('forms/config.php');
 
 if ((!isset($_SESSION['user']) == true) and (!isset($_SESSION['senha']) == true) and (!isset($_SESSION['nivel_acesso']) == 'adm')) {
@@ -34,6 +35,7 @@ if (isset($_POST['submit'])) {
 
     $nome = limparDados($conexao, ucfirst($_POST['nome']));
     $descricao = limparDados($conexao, ucfirst($_POST['descricao']));
+    $descricao = nl2br($descricao);
     $preco = limparDados($conexao, $_POST['preco']);
     $categoria = limparDados($conexao, $_POST['categoria']);
 
@@ -141,11 +143,11 @@ $result = $conexao->query($sql);
                                 echo "<tr>";
                                 echo "<td><img src='" . $user_data['imagem'] . "' alt='Imagem do Produto' style='max-width: 100px; max-height: 100px;'></td>";
                                 echo "<td>" . $user_data['nome'] . "</td>";
-                                echo "<td>" . $user_data['descricao'] . "</td>";
+                                echo "<td><div id='description_$user_data[id_produtos]'>" . nl2br($user_data['descricao']) . "</div></td>";
                                 echo "<td>" . $user_data['preco'] . "</td>";
                                 echo "<td>" . $user_data['categoria'] . "</td>";
                                 echo "<td>
-                                <a class='btn btn-sm btn-primary' href='javascript:void(0);' onclick=\"openEditModal('{$user_data['id_produtos']}', '{$user_data['nome']}', '{$user_data['descricao']}', '{$user_data['preco']}', '{$user_data['categoria']}')\" title='Editar'>
+                                <a class='btn btn-sm btn-primary' href='javascript:void(0);' onclick=\"openEditModal('{$user_data['id_produtos']}', '{$user_data['nome']}', 'description_{$user_data['id_produtos']}', '{$user_data['preco']}', '{$user_data['categoria']}')\" title='Editar'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
                                         <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.650l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106.106a.5.5 0 0 1 0 .708l-10-10-.106.106a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0 .708l10-10 .106-.106a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3zM3 13.5a.5.5 0 0 1 .5-.5H4V12a.5.5 0 0 1 .5-.5H5a.5.5 0 0 1 .5.5V12h.5a.5.5 0 0 1 .5.5V13a.5.5 0 0 1-.5.5H5V14a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V13H3a.5.5 0 0 1-.5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
                                     </svg>
@@ -183,22 +185,30 @@ $result = $conexao->query($sql);
                                 <input type="file" class="form-control-file" id="user_imagem" name="imagem"
                                     accept="image/*">
                             </div>
-                            <input type="text" class="form-control" id="user_nome" autocomplete="off" placeholder="Nome"
-                                name="nome" required>
-                            <br>
-                            <input type="text" class="form-control" id="user_descricao" autocomplete="off"
-                                placeholder="Descrição" name="descricao" required>
-                            <br>
-                            <input type="text" class="form-control" id="user_preco" autocomplete="off"
-                                placeholder="Preço" name="preco" required oninput="validarPreco(this)">
-                            <br>
-                            <select id="user_categoria" class="form-control" name="categoria" required>
-                                <option value="" disabled selected>Selecione a categoria</option>
-                                <option value="Roupas">Roupas</option>
-                                <option value="Maquiagens">Maquiagens</option>
-                                <option value="Acessórios">Acessórios</option>
-                            </select>
-                            <br>
+                            <div class="form-group">
+                                <label for="user_nome">Nome:</label>
+                                <input type="text" class="form-control" id="user_nome" name="nome" autocomplete="off"
+                                    placeholder="Nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_descricao">Descrição:</label>
+                                <textarea class="form-control" id="user_descricao" name="descricao"
+                                    placeholder="Descrição" autocomplete="off" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_preco">Preço:</label>
+                                <input type="text" class="form-control" id="user_preco" autocomplete="off"
+                                    placeholder="Preço" name="preco" required oninput="validarPreco(this)">
+                            </div>
+                            <div class="form-group">
+                                <label for="user_categoria">Categoria:</label>
+                                <select id="user_categoria" class="form-control" name="categoria" required>
+                                    <option value="" disabled selected>Selecione a categoria</option>
+                                    <option value="Roupas">Roupas</option>
+                                    <option value="Maquiagens">Maquiagens</option>
+                                    <option value="Acessórios">Acessórios</option>
+                                </select>
+                            </div>
                             <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Cadastrar">
                         </form>
                     </div>
@@ -225,8 +235,8 @@ $result = $conexao->query($sql);
                             </div>
                             <div class="form-group">
                                 <label for="editProductDescription">Descrição:</label>
-                                <input type="text" class="form-control" id="editProductDescription" name="descricao"
-                                    required>
+                                <textarea class="form-control" id="editProductDescription" name="descricao"
+                                    required></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="editProductPrice">Preço:</label>
@@ -287,14 +297,16 @@ $result = $conexao->query($sql);
             $('#productModal').modal('show');
         });
 
-        function openEditModal(id, name, description, price, category) {
+        function openEditModal(id, name, descriptionId, price, category) {
             document.getElementById("editProductID").value = id;
             document.getElementById("editProductName").value = name;
+            var description = document.getElementById(descriptionId).innerText;
             document.getElementById("editProductDescription").value = description;
             document.getElementById("editProductPrice").value = price;
             document.getElementById("editProductCategory").value = category;
             $('#editProductModal').modal('show');
         }
+
 
         document.getElementById("closeEditModal").addEventListener("click", function () {
             $('#editProductModal').modal('hide');

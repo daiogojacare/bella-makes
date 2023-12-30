@@ -71,7 +71,7 @@ if (isset($_GET['id'])) {
                                 </span>
                             </div>
                             <p class="lead">
-                                <?php echo $produto['descricao']; ?>
+                                <?php echo nl2br($produto['descricao']); ?>
                             </p>
                             <form class="d-flex">
                                 <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1"
