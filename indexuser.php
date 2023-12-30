@@ -181,14 +181,18 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         <span class="padding_10">Carrinho</span></a>
                                 </li>
-                                <li>
+                                <li class="dropdown">
                                     <?php if (!empty($logado)): ?>
-                                        <a href="#!">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                             <span class="padding_10">Olá,
                                                 <?php echo $logado; ?>!
                                             </span>
                                         </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="forms/sair.php">Sair</a>
+                                        </div>
                                     <?php endif; ?>
                                 </li>
                             </ul>
