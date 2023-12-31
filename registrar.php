@@ -1,13 +1,14 @@
 <?php
+
 $error_message = '';
 
 if (isset($_POST['submit'])) {
     include('forms/config.php');
 
-    $user = $_POST['user'];
-    $nome = $_POST['nome'];
-    $senha = $_POST['senha'];
-    $nivel_acesso = $_POST['nivel_acesso'];
+    $user = mysqli_real_escape_string($conexao, $_POST['user']);
+    $nome = mysqli_real_escape_string($conexao, $_POST['nome']);
+    $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
+    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
     $user_check_query = mysqli_query($conexao, "SELECT * FROM usuarios WHERE user='$user'");
     $user_exists = mysqli_num_rows($user_check_query);
@@ -16,11 +17,13 @@ if (isset($_POST['submit'])) {
         $error_message = "Usuário já está cadastrado.";
     } else {
         $result = mysqli_query($conexao, "INSERT INTO usuarios(user,nome,senha,nivel_acesso) 
-            VALUES ('$user','$nome','$senha','$nivel_acesso')");
+            VALUES ('$user','$nome','$senha_hash','usuario')"); 
         header('Location: login.php');
+        exit();
     }
 }
 ?>
+
 
 <html lang="pt-br">
 

@@ -3,62 +3,21 @@ session_start();
 
 include('forms/config.php');
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['senha'])) {
-    unset($_SESSION['user']);
-    unset($_SESSION['senha']);
-    header('Location: login.php');
-}
-
-$user = $_SESSION['user'];
-$sql = "SELECT user FROM usuarios WHERE user = ?";
-$stmt = $conexao->prepare($sql);
-if ($stmt) {
-    $stmt->bind_param("s", $user);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $logado = $row['user'];
-    }
-    $stmt->close();
-}
-
-if (!empty($_GET['search'])) {
-    $data = $_GET['search'];
-    $sql = "SELECT * FROM usuarios WHERE id_usuario LIKE ? OR nome LIKE ? OR email LIKE ? ORDER BY id_usuario DESC";
-    $stmt = $conexao->prepare($sql);
-    if ($stmt) {
-        $searchParam = "%$data%";
-        $stmt->bind_param("sss", $searchParam, $searchParam, $searchParam);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-    } else {
-        echo "Erro na preparação da consulta.";
-    }
-} else {
-    $sql = "SELECT * FROM usuarios ORDER BY id_usuarios DESC";
-    $result = $conexao->query($sql);
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
 }
 
 function getProdutosByCategoria($conexao, $categoria)
 {
-    $sql = "SELECT * FROM produtos WHERE categoria = ? ORDER BY id_produtos DESC";
-    $stmt = $conexao->prepare($sql);
-    if ($stmt) {
-        $stmt->bind_param("s", $categoria);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result;
-    } else {
-        echo "Erro na preparação da consulta.";
-        return null;
-    }
+    $sql = "SELECT * FROM produtos WHERE categoria = '$categoria' ORDER BY id_produtos DESC";
+    $result = $conexao->query($sql);
+    return $result;
 }
 
 $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
 ?>
+
 
 
 <!DOCTYPE html>
@@ -177,18 +136,20 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                         </div>
                         <div class="login_menu">
                             <ul>
-                                <li><a href="#">
+                                <li>
+                                    <a href="#">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        <span class="padding_10">Carrinho</span></a>
+                                        <span class="padding_10">Carrinho</span>
+                                    </a>
                                 </li>
                                 <li class="dropdown">
-                                    <?php if (!empty($logado)): ?>
+                                    <?php if (isset($_SESSION['user'])): ?>
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-user" aria-hidden="true"></i>
-                                            <span class="padding_10">Olá,
-                                                <?php echo $logado; ?>!
-                                            </span>
+                                                <span class="padding_10">Olá,
+                                                    <?php echo $_SESSION['user']; ?>!
+                                                </span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <a class="dropdown-item" href="forms/sair.php">Sair</a>
