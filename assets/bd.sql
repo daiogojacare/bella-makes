@@ -14,6 +14,3 @@ CREATE TABLE produtos (
     categoria VARCHAR(100) NOT NULL,
     imagem VARCHAR(255)
 );
-
-INSERT INTO usuarios (nome, user, senha, nivel_acesso)
-VALUES ('BellaMakes', 'bellamakes', '123123', 'adm');

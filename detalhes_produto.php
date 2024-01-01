@@ -134,19 +134,6 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
             </section>
-            <div class="footer_section layout_padding">
-                <div class="container">
-                    <div class="footer_logo"><a href="index.php"><img src="assets/images/bellamakes.png"
-                                style="width: 20%; height: auto;"></a></div>
-                    <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
-                </div>
-            </div>
-            <div class="copyright_section">
-                <div class="container">
-                    <p class="copyright_text">Copyright &copy; 2023 Todos os direitos reservados. Feito por <a
-                            href="https://github.com/daiogojacare">Diogo Borges Corso</a></p>
-                </div>
-            </div>
             <?php
     } else {
         echo '<p class="error-message">Produto não encontrado.</p>';
@@ -155,6 +142,19 @@ if (isset($_GET['id'])) {
     echo '<p class="error-message">ID do produto não especificado.</p>';
 }
 ?>
+    <div class="footer_section layout_padding">
+        <div class="container">
+            <div class="footer_logo"><a href="index.php"><img src="assets/images/bellamakes.png"
+                        style="width: 20%; height: auto;"></a></div>
+            <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
+        </div>
+    </div>
+    <div class="copyright_section">
+        <div class="container">
+            <p class="copyright_text">Copyright &copy; 2023 Todos os direitos reservados. Feito por <a
+                    href="https://wa.me/5548999857701">Diogo Borges Corso</a></p>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/details.js"></script>
 </body>

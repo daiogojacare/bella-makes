@@ -74,7 +74,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="logo"><a href="index.php"><img src="assets/images/bellamakes.png"
-                                    style="width: 27%; height: auto;"></a></div>
+                                    style="width: 70%; height: auto;"></a></div>
                     </div>
                 </div>
             </div>
@@ -113,11 +113,6 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                     </div>
                     <div class="header_box">
                         <div class="lang_box ">
-                            <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                                <img src="assets/images/flag-br.png" alt="flag" class="mr-2" title="Brasil"
-                                    style="width: 20px; height: auto;"> Português <i class="fa fa-angle-down ml-2"
-                                    aria-hidden="true"></i>
-                            </a>
                             <div class="dropdown-menu ">
                                 <a href="indexingles.php" class="dropdown-item">
                                     <img src="assets/images/flag-us.png" class="mr-2" alt="flag"
@@ -128,7 +123,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                         </div>
                         <div class="login_menu">
                             <ul>
-                                <li><a href="#">
+                                <li><a href="login.php">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         <span class="padding_10">Carrinho</span></a>
                                 </li>
@@ -231,7 +226,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
     <div class="copyright_section">
         <div class="container">
             <p class="copyright_text">Copyright &copy; 2023 Todos os direitos reservados. Feito por <a
-                    href="https://github.com/daiogojacare">Diogo Borges Corso</a></p>
+                    href="https://wa.me/5548999857701">Diogo Borges Corso</a></p>
         </div>
     </div>
     <script src="assets/js/jquery.min.js"></script>
