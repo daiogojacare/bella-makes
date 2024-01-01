@@ -81,7 +81,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="logo"><a href="index.php"><img src="assets/images/bellamakes.png"
+                        <div class="logo"><a href="index_loggedin.php"><img src="assets/images/bellamakes.png"
                                     style="width: 70%; height: auto;"></a></div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                 <div class="containt_main">
                     <div id="mySidenav" class="sidenav">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="index.php">Início</a>
+                        <a href="index_loggedin.php">Início</a>
                         <a href="roupas.php">Roupas</a>
                         <a href="maquiagens.php">Maquiagens</a>
                         <a href="acessorios.php">Acessórios</a>
@@ -233,7 +233,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
     <?php endforeach; ?>
     <div class="footer_section layout_padding">
         <div class="container">
-            <div class="footer_logo"><a href="index.php"><img src="assets/images/bellamakes.png"
+            <div class="footer_logo"><a href="index_loggedin.php"><img src="assets/images/bellamakes.png"
                         style="width: 200px; height: auto;"></a></div>
             <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
         </div>
