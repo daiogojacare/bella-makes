@@ -28,12 +28,17 @@ if (isset($_SESSION['user'])) {
                 echo "<form method='post' action='forms/atualizar_carrinho.php'>";
                 echo "<input type='hidden' name='indice' value='$indice'>";
                 echo "<input type='number' name='quantidade' value='{$item['quantidade']}' min='1' max='10' onchange='this.form.submit()'>";
-                echo "</form><br>";
+                echo "</form>";
 
                 $subtotal = $item['preco'] * $item['quantidade']; 
                 echo "Subtotal: R$" . $subtotal . "<br>";
 
-                echo "Imagem: <img src='" . $produto['imagem'] . "' alt='" . $produto['nome'] . "'><br><br>";
+                echo "Imagem: <img src='" . $produto['imagem'] . "' alt='" . $produto['nome'] . "'><br>";
+
+                echo "<form method='post' action='forms/deletar_produto_carrinho.php'>";
+                echo "<input type='hidden' name='indice' value='$indice'>";
+                echo "<input type='submit' value='Deletar'>";
+                echo "</form><br>";
 
                 $total += $subtotal; 
             } else {
