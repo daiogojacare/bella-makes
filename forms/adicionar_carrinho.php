@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('forms/config.php');
+include('config.php');
 
 if (isset($_GET['produto_id']) && isset($_GET['produto_preco'])) {
     $produto_id = $_GET['produto_id'];
@@ -13,7 +13,6 @@ if (isset($_GET['produto_id']) && isset($_GET['produto_preco'])) {
             $_SESSION['carrinho'][$usuario_id] = array();
         }
 
-        // Consulta ao banco de dados para obter detalhes do produto
         $sql = "SELECT * FROM produtos WHERE id_produtos = '$produto_id'";
         $result = $conexao->query($sql);
 
