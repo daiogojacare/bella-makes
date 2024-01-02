@@ -46,6 +46,11 @@ if (isset($_SESSION['user'])) {
             }
         }
         echo "Preço total do carrinho: R$" . $total;
+
+        echo "<form method='post' action='forms/processar_pedido.php'>";
+        echo "<input type='submit' value='Finalizar Pedido'>";
+        echo "</form>";
+
     } else {
         echo "Seu carrinho está vazio.";
     }
