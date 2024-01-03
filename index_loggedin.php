@@ -214,7 +214,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                                         <div class="btn_main">
                                             <div class="buy_bt"><a
                                                     href="forms/adicionar_carrinho.php?produto_id=<?php echo $row['id_produtos']; ?>&produto_preco=<?php echo $row['preco']; ?>">
-                                                    Compre Agora
+                                                    Adicionar ao Carrinho
                                                 </a>
                                             </div>
                                             <div class="seemore_bt"><a

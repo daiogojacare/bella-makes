@@ -9,21 +9,27 @@ if (isset($_POST['submit'])) {
     $nome = mysqli_real_escape_string($conexao, $_POST['nome']);
     $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+    $email = mysqli_real_escape_string($conexao, $_POST['email']);
+    $telefone = mysqli_real_escape_string($conexao, $_POST['telefone']);
 
     $user_check_query = mysqli_query($conexao, "SELECT * FROM usuarios WHERE user='$user'");
+    $email_check_query = mysqli_query($conexao, "SELECT * FROM usuarios WHERE email='$email'");
+    
     $user_exists = mysqli_num_rows($user_check_query);
+    $email_exists = mysqli_num_rows($email_check_query);
 
     if ($user_exists > 0) {
         $error_message = "Usuário já está cadastrado.";
+    } elseif ($email_exists > 0) {
+        $error_message = "Email já está cadastrado.";
     } else {
-        $result = mysqli_query($conexao, "INSERT INTO usuarios(user,nome,senha,nivel_acesso) 
-            VALUES ('$user','$nome','$senha_hash','usuario')"); 
+        $result = mysqli_query($conexao, "INSERT INTO usuarios(user,nome,senha,nivel_acesso,email,telefone) 
+            VALUES ('$user','$nome','$senha_hash','usuario','$email','$telefone')"); 
         header('Location: login.php');
         exit();
     }
 }
 ?>
-
 
 <html lang="pt-br">
 
@@ -63,6 +69,14 @@ if (isset($_POST['submit'])) {
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
                 <input type="text" name="nome" id="user__nome" placeholder="Nome" autocomplete="off" required>
+            </div>
+            <div class="form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="email" id="user__email" placeholder="Email" autocomplete="off" required>
+            </div>
+            <div class="form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="number" name="telefone" id="user__telefone" placeholder="Telefone ou Celular" autocomplete="off" required>
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
