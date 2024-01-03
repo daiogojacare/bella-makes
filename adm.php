@@ -101,6 +101,14 @@ $result = $conexao->query($sql);
                     </a>
                 </li>
             </ul>
+            <ul class="nav-links">
+                <li>
+                    <a href="pedidos.php">
+                        <i class="uil uil-shopping-bag"></i>
+                        <span class="link-name">Produtos</span>
+                    </a>
+                </li>
+            </ul>
             <ul class="logout-mode">
                 <li>
                     <a href="forms/sair.php">

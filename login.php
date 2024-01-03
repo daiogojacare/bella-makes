@@ -24,8 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['nivel_acesso'] = $row['nivel_acesso'];
                 if ($row['nivel_acesso'] == 'adm') {
                     header('Location: adm.php');
+                    exit();
                 } else {
                     header('Location: index_loggedin.php');
+                    exit();
                 }
             } else {
                 $_SESSION['error'] = 'Usuário ou senha incorretos.';
@@ -48,47 +50,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Bella Makes</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
     <link rel="icon" href="assets/images/icon.png" />
     <link href="assets/css/login.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Xb/Lp8CP3ZF8TyCxjLKbXdYv4sTf9CwAl1L/YV+sg0xbX7TyqI2PgUjA/wmKcgCwjN5qf8bYt4fQOQ1O6Ofwkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="align">
-
     <div class="text-center mt-3">
         <a href="index.php" class="btn btn-secondary">Voltar</a>
     </div>
-
     <div class="wrapper">
         <div class="logo">
             <img src="assets/images/icon.png" alt="">
         </div>
-        <div class="text-center mt-4 name" style="text-align: center; margin-top: 5px;">
-            Bella Makes
-        </div>
+        <div class="text-center mt-4 name" style="text-align: center; margin-top: 5px;" >Bella Makes</div>
         <?php
         if (isset($_SESSION['error'])) {
-            echo '<div class="error-msg" style="color: red; text-align: center;">' . $_SESSION['error'] . '</div>';
+            echo '<div class="error-msg" style="color: red; text-align: center;>' . $_SESSION['error'] . '</div>';
             unset($_SESSION['error']);
         }
         ?>
         <form class="p-3 mt-3" action="login.php" method="POST">
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
+            <div class="form-field">
+                <i class="far fa-user"></i>
                 <input type="text" name="user" id="login__user" placeholder="Usuário" required>
             </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
+            <div class="form-field">
+                <i class="fas fa-key"></i>
                 <input type="password" name="senha" id="login__password" placeholder="Senha" required>
             </div>
             <button type="submit" class="btn mt-3" name="submit">Entrar</button>
         </form>
-        <div class="text-center fs-6" style="text-align: center; margin-top: 5px;">
+        <div class="text-center fs-6 mt-3" style="text-align: center; margin-top: 5px;">
             <a href="#">Esqueceu sua senha?</a> ou <a href="registrar.php">Registrar</a>
         </div>
     </div>
-
 </body>
 
 </html>
