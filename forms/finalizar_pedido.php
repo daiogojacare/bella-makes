@@ -46,9 +46,10 @@ if (isset($_SESSION['user']) && isset($_SESSION['carrinho'][$_SESSION['user']]))
                     echo "Erro ao finalizar o pedido. Por favor, tente novamente.";
                 } else {
                     unset($_SESSION['carrinho'][$_SESSION['user']]);
-
+                
                     $conexao->commit();
-                    echo "Pedido finalizado com sucesso!";
+                    header("Location: obrigado.php");
+                    exit();
                 }
             } else {
                 echo "Não foi possível finalizar o pedido. O carrinho está vazio.";
