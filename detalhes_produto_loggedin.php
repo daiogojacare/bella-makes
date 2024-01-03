@@ -41,8 +41,8 @@ if (isset($_GET['id'])) {
         <body>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container px-4 px-lg-5">
-                    <a class="navbar-brand" href="index.php"><img class="card-img-top" src="assets/images/bellamakes.png"
-                            alt="..." style="width: 150px; height: auto;" /></a>
+                    <a class="navbar-brand" href="index_loggedin.php"><img class="card-img-top"
+                            src="assets/images/bellamakes.png" alt="..." style="width: 150px; height: auto;" /></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -50,16 +50,16 @@ if (isset($_GET['id'])) {
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                             <li class="nav-item"><a
                                     class="nav-link <?php echo ($produto_categoria === 'Início') ? 'active' : ''; ?>"
-                                    href="index.php">Início</a></li>
+                                    href="index_loggedin.php">Início</a></li>
                             <li class="nav-item"><a
                                     class="nav-link <?php echo ($produto_categoria === 'Roupas') ? 'active' : ''; ?>"
-                                    href="#!">Roupas</a></li>
+                                    href="roupas.php">Roupas</a></li>
                             <li class="nav-item"><a
                                     class="nav-link <?php echo ($produto_categoria === 'Maquiagens') ? 'active' : ''; ?>"
-                                    href="#!">Maquiagens</a></li>
+                                    href="maquiagens.php">Maquiagens</a></li>
                             <li class="nav-item"><a
                                     class="nav-link <?php echo ($produto_categoria === 'Acessórios') ? 'active' : ''; ?>"
-                                    href="#!">Acessórios</a></li>
+                                    href="acessorios.php">Acessórios</a></li>
                         </ul>
                         <form class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
@@ -90,15 +90,14 @@ if (isset($_GET['id'])) {
                             <p class="lead">
                                 <?php echo nl2br($produto['descricao']); ?>
                             </p>
-                            <form class="d-flex">
+                            <form class="d-flex"
+                                onsubmit="event.preventDefault(); adicionarCarrinho(<?php echo $produto['id_produtos']; ?>)">
                                 <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1"
                                     style="max-width: 3rem" />
-                                <form action="forms/adicionar_carrinho.php" method="post">
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="submit">
-                                        <i class="bi-cart-fill me-1"></i>
-                                        Adicionar ao Carrinho
-                                    </button>
-                                </form>
+                                <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Adicionar ao Carrinho
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -128,7 +127,7 @@ if (isset($_GET['id'])) {
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                             <div class="text-center">
                                                 <a class="btn btn-outline-dark mt-auto"
-                                                    href="detalhes_produto_loggedin.php?id=<?php echo $produto_relacionado['id_produtos']; ?>">Mais</a>
+                                                    href="detalhes_produto.php?id=<?php echo $produto_relacionado['id_produtos']; ?>">Mais</a>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +151,7 @@ if (isset($_GET['id'])) {
 ?>
     <div class="footer_section layout_padding">
         <div class="container">
-            <div class="footer_logo"><a href="index.php"><img src="assets/images/bellamakes.png"
+            <div class="footer_logo"><a href="index_loggedin.php"><img src="assets/images/bellamakes.png"
                         style="width: 20%; height: auto;"></a></div>
             <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
         </div>
@@ -165,6 +164,11 @@ if (isset($_GET['id'])) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/details.js"></script>
+    <script>
+        function adicionarCarrinho(produtoId) {
+            window.location.href = 'forms/adicionar_carrinho.php?id=' + produtoId;
+        }
+    </script>
 </body>
 
 </html>

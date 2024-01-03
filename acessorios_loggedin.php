@@ -15,7 +15,10 @@ function getProdutosByCategoria($conexao, $categoria)
     return $result;
 }
 
-$categorias = array('Roupas', 'Maquiagens', 'Acessórios');
+$categoriaDesejada = 'Acessórios';
+
+$categorias = array($categoriaDesejada);
+
 ?>
 
 <!DOCTYPE html>
@@ -120,11 +123,9 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                     <div class="header_box">
                         <div class="login_menu">
                             <ul>
-                                <li>
-                                    <a href="carrinho.php">
+                                <li><a href="login.php">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        <span class="padding_10">Carrinho</span>
-                                    </a>
+                                        <span class="padding_10">Carrinho</span></a>
                                 </li>
                                 <li class="dropdown">
                                     <?php if (isset($_SESSION['user'])): ?>
@@ -185,7 +186,9 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
             </div>
         </div>
     </div>
-    <?php foreach ($categorias as $categoria): ?>
+    <?php
+    foreach ($categorias as $categoria):
+        ?>
         <div class="fashion_section">
             <div class="container">
                 <h1 class="fashion_taital">
@@ -210,13 +213,9 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                                             <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
                                         </div>
                                         <div class="btn_main">
-                                            <div class="buy_bt"><a
-                                                    href="forms/adicionar_carrinho.php?produto_id=<?php echo $row['id_produtos']; ?>&produto_preco=<?php echo $row['preco']; ?>">
-                                                    Adicionar ao Carrinho
-                                                </a>
-                                            </div>
+                                            <div class="buy_bt"><a href="login.php">Compre Agora</a></div>
                                             <div class="seemore_bt"><a
-                                                    href="detalhes_produto_loggedin.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
+                                                    href="detalhes_produto.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
                                         </div>
                                     </div>
                                 </div>

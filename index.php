@@ -95,9 +95,9 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todas as Categorias
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Roupas</a>
-                            <a class="dropdown-item" href="#">Maquiagens</a>
-                            <a class="dropdown-item" href="#">Acessórios</a>
+                            <a class="dropdown-item" href="roupas.php">Roupas</a>
+                            <a class="dropdown-item" href="maquiagens.php">Maquiagens</a>
+                            <a class="dropdown-item" href="acessorios.php">Acessórios</a>
                         </div>
                     </div>
                     <div class="main">
@@ -112,15 +112,6 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                         </div>
                     </div>
                     <div class="header_box">
-                        <div class="lang_box ">
-                            <div class="dropdown-menu ">
-                                <a href="indexingles.php" class="dropdown-item">
-                                    <img src="assets/images/flag-us.png" class="mr-2" alt="flag"
-                                        style="width: 20px; height: auto;">
-                                    Inglês
-                                </a>
-                            </div>
-                        </div>
                         <div class="login_menu">
                             <ul>
                                 <li><a href="login.php">

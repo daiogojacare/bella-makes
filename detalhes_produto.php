@@ -46,13 +46,13 @@ if (isset($_GET['id'])) {
                                     href="index.php">Início</a></li>
                             <li class="nav-item"><a
                                     class="nav-link <?php echo ($produto_categoria === 'Roupas') ? 'active' : ''; ?>"
-                                    href="#!">Roupas</a></li>
+                                    href="roupas.php">Roupas</a></li>
                             <li class="nav-item"><a
                                     class="nav-link <?php echo ($produto_categoria === 'Maquiagens') ? 'active' : ''; ?>"
-                                    href="#!">Maquiagens</a></li>
+                                    href="maquiagens.php">Maquiagens</a></li>
                             <li class="nav-item"><a
                                     class="nav-link <?php echo ($produto_categoria === 'Acessórios') ? 'active' : ''; ?>"
-                                    href="#!">Acessórios</a></li>
+                                    href="acessorios.php">Acessórios</a></li>
                         </ul>
                         <form class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
@@ -83,7 +83,8 @@ if (isset($_GET['id'])) {
                             <p class="lead">
                                 <?php echo nl2br($produto['descricao']); ?>
                             </p>
-                            <form class="d-flex">
+                            <form class="d-flex"
+                                onsubmit="event.preventDefault(); adicionarCarrinho(<?php echo $produto['id_produtos']; ?>)">
                                 <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1"
                                     style="max-width: 3rem" />
                                 <button class="btn btn-outline-dark flex-shrink-0" type="submit">
@@ -95,7 +96,6 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
             </section>
-            <!-- Seção de produtos relacionados -->
             <section class="py-5 bg-light">
                 <div class="container px-4 px-lg-5 mt-5">
                     <h2 class="fw-bolder mb-4">Produtos Relacionados</h2>
@@ -157,6 +157,11 @@ if (isset($_GET['id'])) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/details.js"></script>
+    <script>
+        function adicionarCarrinho(produtoId) {
+            window.location.href = 'login.php?id=' + produtoId;
+        }
+    </script>
 </body>
 
 </html>
