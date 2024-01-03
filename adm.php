@@ -100,12 +100,10 @@ $result = $conexao->query($sql);
                         <span class="link-name">Produtos</span>
                     </a>
                 </li>
-            </ul>
-            <ul class="nav-links">
                 <li>
                     <a href="pedidos.php">
                         <i class="uil uil-shopping-bag"></i>
-                        <span class="link-name">Produtos</span>
+                        <span class="link-name">Pedidos</span>
                     </a>
                 </li>
             </ul>
