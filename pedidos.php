@@ -71,12 +71,6 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
             </div>
             <div class="dash-content">
                 <div class="overview">
-                    <a style="text-decoration: none;">
-                        <div class="title">
-                            <i class="uil uil-plus"></i>
-                            <span class="text">Pedidos</span>
-                        </div>
-                    </a>
                     <h2>Pedidos Atuais</h2>
                     <div class="table-container">
                         <table class="table">

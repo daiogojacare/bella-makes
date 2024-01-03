@@ -46,6 +46,11 @@ CREATE TABLE itens_pedido (
     produto_id INT NOT NULL,
     quantidade INT NOT NULL,
     preco_unitario DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (pedido_id) REFERENCES pedidos(id_pedidos),
-    FOREIGN KEY (produto_id) REFERENCES produtos(id_produtos)
+    FOREIGN KEY (pedido_id)
+        REFERENCES pedidos(id_pedidos)
+        ON DELETE CASCADE,
+    FOREIGN KEY (produto_id)
+        REFERENCES produtos(id_produtos)
+        ON DELETE CASCADE
 );
+
