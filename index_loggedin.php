@@ -18,8 +18,6 @@ function getProdutosByCategoria($conexao, $categoria)
 $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -218,7 +216,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                                                 </a>
                                             </div>
                                             <div class="seemore_bt"><a
-                                                    href="detalhes_produto.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
+                                                    href="detalhes_produto_loggedin.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
                                         </div>
                                     </div>
                                 </div>

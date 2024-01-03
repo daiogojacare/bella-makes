@@ -94,14 +94,13 @@ include('forms/config.php');
                         echo "<div>Preço total do carrinho: R$ " . $total . "</div>";
 
                         ?>
-                        <!-- Botões para continuar comprando e finalizar pedido -->
                         <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
-                            <button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">Continuar
+                            <button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button" onclick="continuarComprando()">Continuar
                                 Comprando</button>
                         </div>
-                        <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
-                            <button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button"
-                                onclick="finalizarPedido()">Finalizar Pedido</button>
+                        <div class=" d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
+                                <button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button"
+                                    onclick="finalizarPedido()">Finalizar Pedido</button>
                         </div>
                         <?php
                     } else {
@@ -121,6 +120,10 @@ include('forms/config.php');
     <script>
         function finalizarPedido() {
             window.location.href = 'forms/finalizar_pedido.php';
+        }
+
+        function continuarComprando() {
+            window.location.href = 'index_loggedin.php';
         }
     </script>
 
