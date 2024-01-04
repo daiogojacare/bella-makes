@@ -96,7 +96,7 @@ $categorias = array($categoriaDesejada);
                         <a href="index_loggedin.php">Início</a>
                         <a href="roupas_loggedin.php">Roupas</a>
                         <a href="maquiagens_loggedin.php">Maquiagens</a>
-                        <a href="acessorios_loggedin.php">Acessórios</a>
+                        <a href="acessórios_loggedin.php">Acessórios</a>
                     </div>
                     <span class="toggle_icon" onclick="openNav()"><img src="assets/images/toggle-icon.png"></span>
                     <div class="dropdown">
@@ -106,7 +106,7 @@ $categorias = array($categoriaDesejada);
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="roupas_loggedin.php">Roupas</a>
                             <a class="dropdown-item" href="maquiagens_loggedin.php">Maquiagens</a>
-                            <a class="dropdown-item" href="acessorios_loggedin.php">Acessórios</a>
+                            <a class="dropdown-item" href="acessórios_loggedin.php">Acessórios</a>
                         </div>
                     </div>
                     <div class="main">

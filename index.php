@@ -87,7 +87,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                         <a href="index.php">Início</a>
                         <a href="roupas.php">Roupas</a>
                         <a href="maquiagens.php">Maquiagens</a>
-                        <a href="acessorios.php">Acessórios</a>
+                        <a href="acessórios.php">Acessórios</a>
                     </div>
                     <span class="toggle_icon" onclick="openNav()"><img src="assets/images/toggle-icon.png"></span>
                     <div class="dropdown">
@@ -97,7 +97,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="roupas.php">Roupas</a>
                             <a class="dropdown-item" href="maquiagens.php">Maquiagens</a>
-                            <a class="dropdown-item" href="acessorios.php">Acessórios</a>
+                            <a class="dropdown-item" href="acessórios.php">Acessórios</a>
                         </div>
                     </div>
                     <div class="main">
@@ -144,15 +144,8 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h1 class="banner_taital">Conheça<br>Bella Makes</h1>
-                                    <div class="buynow_bt"><a href="#">Compre Agora</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h1 class="banner_taital">Conheça<br>Nossos Produtos</h1>
-                                    <div class="buynow_bt"><a href="#">Compre Agora</a></div>
+                                    <div class="buynow_bt"><a href="https://www.instagram.com/gabisantos162023/">Conheça
+                                            Agora</a></div>
                                 </div>
                             </div>
                         </div>
@@ -176,32 +169,54 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                 <div class="fashion_section_2">
                     <div class="row">
                         <?php
+                        $categorias = array();
+
+                        $limit = 3;
+
                         $produtos = getProdutosByCategoria($conexao, $categoria);
                         if ($produtos->num_rows > 0) {
+                            $counter = 0;
                             while ($row = $produtos->fetch_assoc()) {
-                                ?>
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">
-                                            <?php echo $row['nome']; ?>
-                                        </h4>
-                                        <p class="price_text">Preço <span style="color: #262626;">
-                                                <?php echo 'R$' . $row['preco']; ?>
-                                            </span></p>
-                                        <div class="product_image">
-                                            <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
+                                if ($counter < $limit) {
+                                    ?>
+                                    <div class="col-lg-4 col-sm-4">
+                                        <div class="box_main">
+                                            <h4 class="shirt_text">
+                                                <?php echo $row['nome']; ?>
+                                            </h4>
+                                            <p class="price_text">Preço <span style="color: #262626;">
+                                                    <?php echo 'R$' . $row['preco']; ?>
+                                                </span></p>
+                                            <div class="product_image">
+                                                <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
+                                            </div>
+                                            <div class="btn_main">
+                                                <div class="buy_bt"><a
+                                                        href="forms/adicionar_carrinho.php?produto_id=<?php echo $row['id_produtos']; ?>&produto_preco=<?php echo $row['preco']; ?>">
+                                                        Adicionar ao Carrinho
+                                                    </a>
+                                                </div>
+                                                <div class="seemore_bt"><a
+                                                        href="detalhes_produto_loggedin.php?id=<?php echo $row['id_produtos']; ?>">Mais</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="login.php">Compre Agora</a></div>
-                                            <div class="seemore_bt"><a
-                                                    href="detalhes_produto.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
+                                        <div class="seemore_bt">
+                                            <a href="<?php echo strtolower($categoria) . '.php'; ?>">Ver mais</a>
                                         </div>
                                     </div>
-                                </div>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <p>Nenhum produto encontrado nesta categoria.</p>
-                        <?php } ?>
+                                    <?php
+                                    $counter++;
+                                } else {
+                                    break;
+                                }
+                            }
+                        } else {
+                            ?>
+                            <p>Nenhum produto encontrado.</p>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

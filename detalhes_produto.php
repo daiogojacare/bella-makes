@@ -52,7 +52,7 @@ if (isset($_GET['id'])) {
                                     href="maquiagens.php">Maquiagens</a></li>
                             <li class="nav-item"><a
                                     class="nav-link <?php echo ($produto_categoria === 'Acessórios') ? 'active' : ''; ?>"
-                                    href="acessorios.php">Acessórios</a></li>
+                                    href="acessórios.php">Acessórios</a></li>
                         </ul>
                         <form class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">

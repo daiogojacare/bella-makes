@@ -89,7 +89,7 @@ $categorias = array($categoriaDesejada);
                         <a href="index.php">Início</a>
                         <a href="roupas.php">Roupas</a>
                         <a href="maquiagens.php">Maquiagens</a>
-                        <a href="acessorios.php">Acessórios</a>
+                        <a href="acessórios.php">Acessórios</a>
                     </div>
                     <span class="toggle_icon" onclick="openNav()"><img src="assets/images/toggle-icon.png"></span>
                     <div class="dropdown">
@@ -99,7 +99,7 @@ $categorias = array($categoriaDesejada);
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="roupas.php">Roupas</a>
                             <a class="dropdown-item" href="maquiagens.php">Maquiagens</a>
-                            <a class="dropdown-item" href="acessorios.php">Acessórios</a>
+                            <a class="dropdown-item" href="acessórios.php">Acessórios</a>
                         </div>
                     </div>
                     <div class="main">

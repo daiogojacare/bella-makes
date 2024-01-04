@@ -1,12 +1,5 @@
 <?php
-session_start();
-
 include('forms/config.php');
-
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
-    exit();
-}
 
 function getProdutosByCategoria($conexao, $categoria)
 {
@@ -82,7 +75,7 @@ $categorias = array($categoriaDesejada);
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="logo"><a href="index_loggedin.php"><img src="assets/images/bellamakes.png"
+                        <div class="logo"><a href="index.php"><img src="assets/images/bellamakes.png"
                                     style="width: 70%; height: auto;"></a></div>
                     </div>
                 </div>
@@ -93,10 +86,10 @@ $categorias = array($categoriaDesejada);
                 <div class="containt_main">
                     <div id="mySidenav" class="sidenav">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="index_loggedin.php">Início</a>
-                        <a href="roupas_loggedin.php">Roupas</a>
-                        <a href="maquiagens_loggedin.php">Maquiagens</a>
-                        <a href="acessorios_loggedin.php">Acessórios</a>
+                        <a href="index.php">Início</a>
+                        <a href="roupas.php">Roupas</a>
+                        <a href="maquiagens.php">Maquiagens</a>
+                        <a href="acessórios.php">Acessórios</a>
                     </div>
                     <span class="toggle_icon" onclick="openNav()"><img src="assets/images/toggle-icon.png"></span>
                     <div class="dropdown">
@@ -104,9 +97,9 @@ $categorias = array($categoriaDesejada);
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Todas as Categorias
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="roupas_loggedin.php">Roupas</a>
-                            <a class="dropdown-item" href="maquiagens_loggedin.php">Maquiagens</a>
-                            <a class="dropdown-item" href="acessorios_loggedin.php">Acessórios</a>
+                            <a class="dropdown-item" href="roupas.php">Roupas</a>
+                            <a class="dropdown-item" href="maquiagens.php">Maquiagens</a>
+                            <a class="dropdown-item" href="acessórios.php">Acessórios</a>
                         </div>
                     </div>
                     <div class="main">
@@ -127,19 +120,9 @@ $categorias = array($categoriaDesejada);
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         <span class="padding_10">Carrinho</span></a>
                                 </li>
-                                <li class="dropdown">
-                                    <?php if (isset($_SESSION['user'])): ?>
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
-                                            <span class="padding_10">Olá,
-                                                <?php echo $_SESSION['user']; ?>!
-                                            </span>
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" href="forms/sair.php">Sair</a>
-                                        </div>
-                                    <?php endif; ?>
+                                <li><a href="login.php">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <span class="padding_10">Usuário</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -230,7 +213,7 @@ $categorias = array($categoriaDesejada);
     <?php endforeach; ?>
     <div class="footer_section layout_padding">
         <div class="container">
-            <div class="footer_logo"><a href="index_loggedin.php"><img src="assets/images/bellamakes.png"
+            <div class="footer_logo"><a href="index.php"><img src="assets/images/bellamakes.png"
                         style="width: 200px; height: auto;"></a></div>
             <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
         </div>

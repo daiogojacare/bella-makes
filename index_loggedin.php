@@ -10,12 +10,13 @@ if (!isset($_SESSION['user'])) {
 
 function getProdutosByCategoria($conexao, $categoria)
 {
-    $sql = "SELECT * FROM produtos WHERE categoria = '$categoria' ORDER BY id_produtos DESC";
+    $sql = "SELECT * FROM produtos WHERE categoria = '$categoria' ORDER BY id_produtos DESC LIMIT 3";
     $result = $conexao->query($sql);
     return $result;
 }
 
 $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
+
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +58,12 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
             display: inline-block;
             vertical-align: middle;
         }
+
+        @media screen and (max-width: 1000px) {
+    .dropdown {
+        display: block !important; 
+    }
+}
     </style>
 </head>
 
@@ -93,7 +100,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                         <a href="index_loggedin.php">Início</a>
                         <a href="roupas_loggedin.php">Roupas</a>
                         <a href="maquiagens_loggedin.php">Maquiagens</a>
-                        <a href="acessorios_loggedin.php">Acessórios</a>
+                        <a href="acessórios_loggedin.php">Acessórios</a>
                     </div>
                     <span class="toggle_icon" onclick="openNav()"><img src="assets/images/toggle-icon.png"></span>
                     <div class="dropdown">
@@ -103,18 +110,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="roupas_loggedin.php">Roupas</a>
                             <a class="dropdown-item" href="maquiagens_loggedin.php">Maquiagens</a>
-                            <a class="dropdown-item" href="acessorios_loggedin.php">Acessórios</a>
-                        </div>
-                    </div>
-                    <div class="main">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Pesquisar...">
-                            <div class="input-group-append">
-                                <button class="btn btn-secondary" type="button"
-                                    style="background-color: #874947; border-color: #874947 ">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
+                            <a class="dropdown-item" href="acessórios_loggedin.php">Acessórios</a>
                         </div>
                     </div>
                     <div class="header_box">
@@ -123,7 +119,9 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                                 <li>
                                     <a href="carrinho.php">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        <span class="padding_10">Carrinho</span>
+                                        <span class="padding_10">Carrinho
+                                            <?php echo isset($_SESSION['user']) && isset($_SESSION['carrinho'][$_SESSION['user']]) ? '(' . count($_SESSION['carrinho'][$_SESSION['user']]) . ')' : ''; ?>
+                                        </span>
                                     </a>
                                 </li>
                                 <li class="dropdown">
@@ -162,15 +160,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h1 class="banner_taital">Conheça<br>Bella Makes</h1>
-                                    <div class="buynow_bt"><a href="#">Compre Agora</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h1 class="banner_taital">Conheça<br>Nossos Produtos</h1>
-                                    <div class="buynow_bt"><a href="#">Compre Agora</a></div>
+                                    <div class="buynow_bt"><a href="https://www.instagram.com/gabisantos162023/">Conheça Agora</a></div>
                                 </div>
                             </div>
                         </div>
@@ -194,36 +184,54 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                 <div class="fashion_section_2">
                     <div class="row">
                         <?php
+                        $categorias = array();
+
+                        $limit = 3;
+
                         $produtos = getProdutosByCategoria($conexao, $categoria);
                         if ($produtos->num_rows > 0) {
+                            $counter = 0;
                             while ($row = $produtos->fetch_assoc()) {
-                                ?>
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">
-                                            <?php echo $row['nome']; ?>
-                                        </h4>
-                                        <p class="price_text">Preço <span style="color: #262626;">
-                                                <?php echo 'R$' . $row['preco']; ?>
-                                            </span></p>
-                                        <div class="product_image">
-                                            <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
-                                        </div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a
-                                                    href="forms/adicionar_carrinho.php?produto_id=<?php echo $row['id_produtos']; ?>&produto_preco=<?php echo $row['preco']; ?>">
-                                                    Adicionar ao Carrinho
-                                                </a>
+                                if ($counter < $limit) {
+                                    ?>
+                                    <div class="col-lg-4 col-sm-4">
+                                        <div class="box_main">
+                                            <h4 class="shirt_text">
+                                                <?php echo $row['nome']; ?>
+                                            </h4>
+                                            <p class="price_text">Preço <span style="color: #262626;">
+                                                    <?php echo 'R$' . $row['preco']; ?>
+                                                </span></p>
+                                            <div class="product_image">
+                                                <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
                                             </div>
-                                            <div class="seemore_bt"><a
-                                                    href="detalhes_produto_loggedin.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
+                                            <div class="btn_main">
+                                                <div class="buy_bt"><a
+                                                        href="forms/adicionar_carrinho.php?produto_id=<?php echo $row['id_produtos']; ?>&produto_preco=<?php echo $row['preco']; ?>">
+                                                        Adicionar ao Carrinho
+                                                    </a>
+                                                </div>
+                                                <div class="seemore_bt"><a
+                                                        href="detalhes_produto_loggedin.php?id=<?php echo $row['id_produtos']; ?>">Mais</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="seemore_bt">
+                                            <a href="<?php echo strtolower($categoria) . '_loggedin.php'; ?>">Ver mais</a>
                                         </div>
                                     </div>
-                                </div>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <p>Nenhum produto encontrado nesta categoria.</p>
-                        <?php } ?>
+                                    <?php
+                                    $counter++;
+                                } else {
+                                    break;
+                                }
+                            }
+                        } else {
+                            ?>
+                            <p>Nenhum produto encontrado.</p>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
