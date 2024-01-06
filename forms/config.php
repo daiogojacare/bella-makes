@@ -2,9 +2,9 @@
 
 /*
 $dbHost = 'localhost';
-$dbUsername = 'id21726664_bellamakes';
+$dbUsername = 'id21755084_teste';
 $dbPassword = '@Diogo0702';
-$dbName = 'id21726664_bellamakes';
+$dbName = 'id21755084_teste';
  */
 
 $dbHost = 'localhost';

@@ -118,19 +118,17 @@ include('forms/config.php');
                                     <?php echo $total; ?>
                                 </h1>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row mt-4 d-flex align-items-center">
-                        <div class="col-sm-6 order-md-2 text-right">
-                            <a href="forms/finalizar_pedido.php" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Finalizar
-                                Pedido</a>
-                        </div>
-                        <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-                            <a href="index_loggedin.php">
-                                <i class="fas fa-arrow-left mr-2"></i> Continue Comprando</a>
-                        </div>
-                    </div>
-                    <?php
+                            <div class="row mt-4 d-flex align-items-center">
+                                <div class="col-sm-6 order-md-2 text-right">
+                                    <a href="forms/finalizar_pedido.php" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Finalizar
+                                        Pedido</a>
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                                    <a href="index_loggedin.php">
+                                        <i class="fas fa-arrow-left mr-2"></i> Continue Comprando</a>
+                                </div>
+                            </div>
+                            <?php
                         } else {
                             // Carrinho vazio
                             echo '<div class="container-fluid mt-100">
@@ -157,8 +155,8 @@ include('forms/config.php');
                         echo "Usuário não está logado.";
                     }
                     ?>
-        </div>
-        </div>
+                </div>
+            </div>
         </div>
     </section>
 

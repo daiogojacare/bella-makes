@@ -1,10 +1,8 @@
--- Drop das tabelas se já existirem
 DROP TABLE IF EXISTS itens_pedido;
 DROP TABLE IF EXISTS pedidos;
 DROP TABLE IF EXISTS produtos;
 DROP TABLE IF EXISTS usuarios;
 
--- Criação da tabela 'usuarios'
 CREATE TABLE usuarios (
     id_usuarios INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -20,7 +18,6 @@ CREATE TABLE usuarios (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Criação da tabela 'produtos'
 CREATE TABLE produtos (
     id_produtos INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -30,7 +27,6 @@ CREATE TABLE produtos (
     imagem VARCHAR(255)
 );
 
--- Criação da tabela 'pedidos'
 CREATE TABLE pedidos (
     id_pedidos INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
@@ -39,7 +35,6 @@ CREATE TABLE pedidos (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuarios)
 );
 
--- Criação da tabela 'itens_pedido'
 CREATE TABLE itens_pedido (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pedido_id INT NOT NULL,

@@ -60,10 +60,10 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
         }
 
         @media screen and (max-width: 1000px) {
-    .dropdown {
-        display: block !important; 
-    }
-}
+            .dropdownuser {
+                display: block !important;
+            }
+        }
     </style>
 </head>
 
@@ -113,6 +113,17 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                             <a class="dropdown-item" href="acessórios_loggedin.php">Acessórios</a>
                         </div>
                     </div>
+                    <div class="main">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Pesquisar...">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="button"
+                                    style="background-color: #874947; border-color: #874947 ">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="header_box">
                         <div class="login_menu">
                             <ul>
@@ -124,7 +135,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                                         </span>
                                     </a>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdownuser">
                                     <?php if (isset($_SESSION['user'])): ?>
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -160,7 +171,8 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h1 class="banner_taital">Conheça<br>Bella Makes</h1>
-                                    <div class="buynow_bt"><a href="https://www.instagram.com/gabisantos162023/">Conheça Agora</a></div>
+                                    <div class="buynow_bt"><a href="https://www.instagram.com/gabisantos162023/">Conheça
+                                            Agora</a></div>
                                 </div>
                             </div>
                         </div>

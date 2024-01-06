@@ -102,7 +102,7 @@ $result = $conexao->query($sql);
                 </li>
                 <li>
                     <a href="pedidos.php">
-                        <i class="uil uil-shopping-bag"></i>
+                        <i class="uil uil-truck"></i>
                         <span class="link-name">Pedidos</span>
                     </a>
                 </li>

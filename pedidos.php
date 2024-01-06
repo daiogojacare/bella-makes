@@ -49,7 +49,7 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                     </li>
                     <li>
                         <a href="pedidos.php">
-                            <i class="uil uil-shopping-bag"></i>
+                            <i class="uil uil-truck"></i>
                             <span class="link-name">Pedidos</span>
                         </a>
                     </li>
