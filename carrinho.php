@@ -56,6 +56,8 @@ include('forms/config.php');
                                                 $item['quantidade'] = 1;
                                             }
 
+                                            $item['preco'] = floatval($item['preco']);
+
                                             $subtotal = $item['preco'] * $item['quantidade'];
                                             $total += $subtotal;
                                             ?>

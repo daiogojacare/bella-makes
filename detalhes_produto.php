@@ -55,7 +55,7 @@ if (isset($_GET['id'])) {
                                     href="acessórios.php">Acessórios</a></li>
                         </ul>
                         <form class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                            <button class="btn btn-outline-dark" id="carrinhoBtn">
                                 <i class="bi-cart-fill me-1"></i>
                                 Carrinho
                                 <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
@@ -83,11 +83,8 @@ if (isset($_GET['id'])) {
                             <p class="lead">
                                 <?php echo nl2br($produto['descricao']); ?>
                             </p>
-                            <form class="d-flex"
-                                onsubmit="event.preventDefault(); adicionarCarrinho(<?php echo $produto['id_produtos']; ?>)">
-                                <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1"
-                                    style="max-width: 3rem" />
-                                <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                            <form class="d-flex" action="login.php">
+                                <button class="btn btn-outline-dark flex-shrink-0">
                                     <i class="bi-cart-fill me-1"></i>
                                     Adicionar ao Carrinho
                                 </button>
@@ -157,11 +154,6 @@ if (isset($_GET['id'])) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/details.js"></script>
-    <script>
-        function adicionarCarrinho(produtoId) {
-            window.location.href = 'login.php?id=' + produtoId;
-        }
-    </script>
 </body>
 
 </html>

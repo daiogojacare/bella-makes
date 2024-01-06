@@ -1,12 +1,5 @@
 <?php
 
-/*
-$dbHost = 'localhost';
-$dbUsername = 'id21755084_teste';
-$dbPassword = '@Diogo0702';
-$dbName = 'id21755084_teste';
- */
-
 $dbHost = 'localhost';
 $dbUsername = 'root';
 $dbPassword = '';

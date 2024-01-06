@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include('forms/config.php');
 
 if (!isset($_SESSION['user'])) {
@@ -61,11 +60,13 @@ if (isset($_GET['id'])) {
                                     class="nav-link <?php echo ($produto_categoria === 'Acessórios') ? 'active' : ''; ?>"
                                     href="acessórios.php">Acessórios</a></li>
                         </ul>
-                        <form class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                        <form class="d-flex" action="carrinho.php">
+                            <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Carrinho
-                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">
+                                    <?php echo isset($_SESSION['user']) && isset($_SESSION['carrinho'][$_SESSION['user']]) ? '(' . count($_SESSION['carrinho'][$_SESSION['user']]) . ')' : ''; ?>
+                                </span>
                             </button>
                         </form>
                     </div>
@@ -91,9 +92,7 @@ if (isset($_GET['id'])) {
                                 <?php echo nl2br($produto['descricao']); ?>
                             </p>
                             <form class="d-flex"
-                                onsubmit="event.preventDefault(); adicionarCarrinho(<?php echo $produto['id_produtos']; ?>)">
-                                <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1"
-                                    style="max-width: 3rem" />
+                                onsubmit="event.preventDefault(); adicionarCarrinho(<?php echo $produto['id_produtos']; ?>, <?php echo $produto['preco']; ?>)">
                                 <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                                     <i class="bi-cart-fill me-1"></i>
                                     Adicionar ao Carrinho
@@ -141,7 +140,31 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
             </section>
-            <?php
+            <div class="footer_section layout_padding">
+                <div class="container">
+                    <div class="footer_logo"><a href="index_loggedin.php"><img src="assets/images/bellamakes.png"
+                                style="width: 20%; height: auto;"></a></div>
+                    <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
+                </div>
+            </div>
+            <div class="copyright_section">
+                <div class="container">
+                    <p class="copyright_text">Copyright &copy; 2023 Todos os direitos reservados. Feito por <a
+                            href="https://wa.me/5548999857701">Diogo Borges Corso</a></p>
+                </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="assets/js/details.js"></script>
+            <script>
+                function adicionarCarrinho(produtoId, produtoPreco) {
+                    window.location.href = 'forms/adicionar_carrinho.php?produto_id=' + produtoId + '&produto_preco=' + produtoPreco;
+                }
+            </script>
+        </body>
+
+        </html>
+
+        <?php
     } else {
         echo '<p class="error-message">Produto não encontrado.</p>';
     }
@@ -149,26 +172,3 @@ if (isset($_GET['id'])) {
     echo '<p class="error-message">ID do produto não especificado.</p>';
 }
 ?>
-    <div class="footer_section layout_padding">
-        <div class="container">
-            <div class="footer_logo"><a href="index_loggedin.php"><img src="assets/images/bellamakes.png"
-                        style="width: 20%; height: auto;"></a></div>
-            <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
-        </div>
-    </div>
-    <div class="copyright_section">
-        <div class="container">
-            <p class="copyright_text">Copyright &copy; 2023 Todos os direitos reservados. Feito por <a
-                    href="https://wa.me/5548999857701">Diogo Borges Corso</a></p>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/details.js"></script>
-    <script>
-        function adicionarCarrinho(produtoId) {
-            window.location.href = 'forms/adicionar_carrinho.php?id=' + produtoId;
-        }
-    </script>
-</body>
-
-</html>
