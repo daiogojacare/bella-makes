@@ -13,7 +13,7 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                              INNER JOIN usuarios u ON p.usuario_id = u.id_usuarios
                              INNER JOIN itens_pedido ip ON p.id_pedidos = ip.pedido_id
                              INNER JOIN produtos pr ON ip.produto_id = pr.id_produtos
-                             ORDER BY u.id_usuarios"; 
+                             ORDER BY u.id_usuarios";
     $result_pedidos_usuarios = $conexao->query($sql_pedidos_usuarios);
     ?>
 
@@ -77,52 +77,60 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                 <i class="uil uil-bars sidebar-toggle"></i>
             </div>
             <div class="dash-content">
-            <div class="overview">
-                <h2>Pedidos Atuais</h2>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nome do Usuário</th>
-                                <th>Telefone do Usuário</th>
-                                <th>Data do Pedido</th>
-                                <th>Status</th>
-                                <th>Detalhes dos Produtos</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $lastUserId = null;
+                <div class="overview">
+                    <h2>Pedidos Atuais</h2>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome do Usuário</th>
+                                    <th>Telefone do Usuário</th>
+                                    <th>Data do Pedido</th>
+                                    <th>Status</th>
+                                    <th>Detalhes dos Produtos</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $lastUserId = null;
 
-                            while ($row_pedido_usuario = $result_pedidos_usuarios->fetch_assoc()) {
-                                if ($lastUserId !== $row_pedido_usuario['id_usuarios']) {
-                                    if ($lastUserId !== null) {
-                                        echo '</td><td colspan="5"></td></tr>'; 
+                                while ($row_pedido_usuario = $result_pedidos_usuarios->fetch_assoc()) {
+                                    if ($lastUserId !== $row_pedido_usuario['id_usuarios']) {
+                                        if ($lastUserId !== null) {
+                                            echo '</td>';
+                                            echo "<td colspan='5'><a class='btn btn-sm btn-success' href='forms/confirmarpedido.php?id_pedido={$lastUserId}' title='Confirmar Pedido'>";
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-circle-fill' viewBox='0 0 16 16'>";
+                                            echo "<path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/>";
+                                            echo "</svg></a></td></tr>";
+                                        }
+                                        echo '<tr>';
+                                        echo '<td>' . $row_pedido_usuario['nome_usuario'] . '</td>';
+                                        echo '<td>' . $row_pedido_usuario['telefone_usuario'] . '</td>';
+                                        echo '<td>' . $row_pedido_usuario['data_pedido'] . '</td>';
+                                        echo '<td>' . $row_pedido_usuario['status'] . '</td>';
+                                        echo '<td>';
                                     }
-                                    echo '<tr>'; 
-                                    echo '<td>' . $row_pedido_usuario['nome_usuario'] . '</td>';
-                                    echo '<td>' . $row_pedido_usuario['telefone_usuario'] . '</td>';
-                                    echo '<td>' . $row_pedido_usuario['data_pedido'] . '</td>';
-                                    echo '<td>' . $row_pedido_usuario['status'] . '</td>';
-                                    echo '<td>';
+
+                                    echo 'Produto: ' . $row_pedido_usuario['nome_produto'] . '<br>';
+                                    echo 'Quantidade: ' . $row_pedido_usuario['quantidade_produto'] . '<br>';
+                                    echo 'Preço Total: ' . ($row_pedido_usuario['preco_unitario_produto'] * $row_pedido_usuario['quantidade_produto']) . '<br>';
+
+                                    $lastUserId = $row_pedido_usuario['id_usuarios'];
                                 }
 
-                                echo 'Produto: ' . $row_pedido_usuario['nome_produto'] . '<br>';
-                                echo 'Quantidade: ' . $row_pedido_usuario['quantidade_produto'] . '<br>';
-                                echo 'Preço Total: ' . ($row_pedido_usuario['preco_unitario_produto'] * $row_pedido_usuario['quantidade_produto']) . '<br>';
-
-                                $lastUserId = $row_pedido_usuario['id_usuarios']; 
-                            }
-
-                            if ($lastUserId !== null) {
-                                echo '</td><td colspan="5"></td></tr>'; 
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                if ($lastUserId !== null) {
+                                    echo '</td>';
+                                    echo "<td colspan='5'><a class='btn btn-sm btn-success' href='forms/confirmarpedido.php?id_pedido={$lastUserId}' title='Confirmar Pedido'>";
+                                    echo "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-circle-fill' viewBox='0 0 16 16'>";
+                                    echo "<path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/>";
+                                    echo "</svg></a></td></tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
         </section>
 
         <script src="assets/js/adm.js"></script>
@@ -131,7 +139,7 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
 
     </html>
 
-<?php
+    <?php
 } else {
     header("Location: forms/login.php");
     exit();
