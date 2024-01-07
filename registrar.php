@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
 
     $user_check_query = mysqli_query($conexao, "SELECT * FROM usuarios WHERE user='$user'");
     $email_check_query = mysqli_query($conexao, "SELECT * FROM usuarios WHERE email='$email'");
-    
+
     $user_exists = mysqli_num_rows($user_check_query);
     $email_exists = mysqli_num_rows($email_check_query);
 
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
         $error_message = "Email já está cadastrado.";
     } else {
         $result = mysqli_query($conexao, "INSERT INTO usuarios(user,nome,senha,nivel_acesso,email,telefone) 
-            VALUES ('$user','$nome','$senha_hash','usuario','$email','$telefone')"); 
+            VALUES ('$user','$nome','$senha_hash','usuario','$email','$telefone')");
         header('Location: login.php');
         exit();
     }
@@ -76,7 +76,8 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
-                <input type="number" name="telefone" id="user__telefone" placeholder="Telefone ou Celular" autocomplete="off" required>
+                <input type="text" name="telefone" id="user__telefone" placeholder="Telefone ou Celular"
+                    autocomplete="off" pattern="(\+55)\s?\d{2}\s?\d{5}\-?\d{4}" required>
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>

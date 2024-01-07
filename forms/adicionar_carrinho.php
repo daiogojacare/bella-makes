@@ -33,7 +33,8 @@ if (isset($_GET['produto_id']) && isset($_GET['produto_preco'])) {
             echo "Produto não encontrado.";
         }
     } else {
-        echo "Usuário não está logado.";
+        header("Location: ../login.php");
+        exit();
     }
 } else {
     echo "Parâmetros inválidos para adicionar ao carrinho.";

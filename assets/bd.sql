@@ -10,10 +10,6 @@ CREATE TABLE usuarios (
     senha VARCHAR(255) NOT NULL,
     nivel_acesso ENUM('adm', 'usuario') NOT NULL,
     email VARCHAR(100) NOT NULL,
-    endereco VARCHAR(255) NOT NULL,
-    cidade VARCHAR(100),
-    estado VARCHAR(100),
-    cep VARCHAR(20),
     telefone VARCHAR(20),
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

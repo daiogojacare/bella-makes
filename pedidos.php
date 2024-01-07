@@ -53,6 +53,12 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                             <span class="link-name">Pedidos</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="clientes.php">
+                            <i class="uil uil-user"></i>
+                            <span class="link-name">Clientes</span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="logout-mode">
                     <li>
@@ -122,8 +128,6 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                                 <?php } ?>
                             </tbody>
                         </table>
-                    <?php } else { ?>
-                        <p>Nenhum pedido encontrado.</p>
                     <?php } ?>
                 </div>
             </div>
