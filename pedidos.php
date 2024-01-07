@@ -98,42 +98,74 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                                 while ($row_pedido_usuario = $result_pedidos_usuarios->fetch_assoc()) {
                                     if ($lastUserId !== $row_pedido_usuario['id_usuarios']) {
                                         if ($lastUserId !== null) {
-                                            echo '</td>';
-                                            echo "<td colspan='5'><a class='btn btn-sm btn-success' href='forms/confirmarpedido.php?id_pedido={$lastUserId}' title='Confirmar Pedido'>";
-                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-circle-fill' viewBox='0 0 16 16'>";
-                                            echo "<path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/>";
-                                            echo "</svg></a></td></tr>";
                                         }
                                         echo '<tr>';
                                         echo '<td>' . $row_pedido_usuario['nome_usuario'] . '</td>';
                                         echo '<td>' . $row_pedido_usuario['telefone_usuario'] . '</td>';
                                         echo '<td>' . $row_pedido_usuario['data_pedido'] . '</td>';
                                         echo '<td>' . $row_pedido_usuario['status'] . '</td>';
-                                        echo '<td>';
+                                        echo "<td><button class='btn btn-sm btn-primary' onclick='openModalForUser(\"{$row_pedido_usuario['id_usuarios']}\")'>Ver Produtos</button></td>";
+                                        echo "<td><a class='btn btn-sm btn-success' href='forms/confirmarpedido.php?id_pedido={$row_pedido_usuario['id_usuarios']}' title='Confirmar Pedido'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg></a></td>";
                                     }
-
+                                    echo '<div class="product-details" data-user-id="' . $row_pedido_usuario['id_usuarios'] . '" style="display: none;">';
                                     echo 'Produto: ' . $row_pedido_usuario['nome_produto'] . '<br>';
                                     echo 'Quantidade: ' . $row_pedido_usuario['quantidade_produto'] . '<br>';
-                                    echo 'Preço Total: ' . ($row_pedido_usuario['preco_unitario_produto'] * $row_pedido_usuario['quantidade_produto']) . '<br>';
+                                    $subtotal_produto = $row_pedido_usuario['preco_unitario_produto'] * $row_pedido_usuario['quantidade_produto'];
+                                    echo 'SubTotal: ' . number_format($subtotal_produto, 2, ',', '.') . '<br>'; 
+                                    echo '</div>';
+
 
                                     $lastUserId = $row_pedido_usuario['id_usuarios'];
                                 }
-
-                                if ($lastUserId !== null) {
-                                    echo '</td>';
-                                    echo "<td colspan='5'><a class='btn btn-sm btn-success' href='forms/confirmarpedido.php?id_pedido={$lastUserId}' title='Confirmar Pedido'>";
-                                    echo "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-circle-fill' viewBox='0 0 16 16'>";
-                                    echo "<path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/>";
-                                    echo "</svg></a></td></tr>";
-                                }
                                 ?>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
         </section>
 
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel">Detalhes do Produto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="productDetails">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <script src="assets/js/adm.js"></script>
+        <script>
+            function openModalForUser(userId) {
+                var productDetails = '';
+                var products = document.querySelectorAll('.product-details[data-user-id="' + userId + '"]');
+                products.forEach(function (product) {
+                    productDetails += product.innerHTML + '<hr>';
+                });
+
+                document.getElementById('productDetails').innerHTML = productDetails;
+                $('#productModal').modal('show');
+            }
+
+            $('.close').on('click', function () {
+                $('#productModal').modal('hide');
+            });
+
+            $(window).on('click', function (event) {
+                if (event.target.id === 'productModal') {
+                    $('#productModal').modal('hide');
+                }
+            });
+        </script>
+
 
     </body>
 
