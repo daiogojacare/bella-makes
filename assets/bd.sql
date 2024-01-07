@@ -17,8 +17,8 @@ CREATE TABLE usuarios (
 CREATE TABLE produtos (
     id_produtos INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    descricao VARCHAR(100) NOT NULL,
-    preco DECIMAL(10, 2) NOT NULL, 
+    descricao TEXT NOT NULL, 
+    preco DECIMAL(10, 2) NOT NULL,
     categoria VARCHAR(100) NOT NULL,
     imagem VARCHAR(255)
 );
@@ -27,8 +27,8 @@ CREATE TABLE pedidos (
     id_pedidos INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status ENUM('pendente', 'finalizado') NOT NULL DEFAULT 'pendente',
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuarios)
+    status ENUM('Pendente', 'Finalizado') NOT NULL DEFAULT 'Pendente',
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuarios) ON DELETE CASCADE
 );
 
 CREATE TABLE itens_pedido (
@@ -37,11 +37,6 @@ CREATE TABLE itens_pedido (
     produto_id INT NOT NULL,
     quantidade INT NOT NULL,
     preco_unitario DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (pedido_id)
-        REFERENCES pedidos(id_pedidos)
-        ON DELETE CASCADE,
-    FOREIGN KEY (produto_id)
-        REFERENCES produtos(id_produtos)
-        ON DELETE CASCADE
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id_pedidos) ON DELETE CASCADE,
+    FOREIGN KEY (produto_id) REFERENCES produtos(id_produtos) ON DELETE CASCADE
 );
-

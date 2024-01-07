@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
                 <input type="text" name="telefone" id="user__telefone" placeholder="Telefone ou Celular"
-                    autocomplete="off" pattern="(\+55)\s?\d{2}\s?\d{5}\-?\d{4}" required>
+                    autocomplete="off" required value="(+55)">
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>

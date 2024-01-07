@@ -16,7 +16,7 @@ if (isset($_SESSION['user']) && isset($_SESSION['carrinho'][$_SESSION['user']]))
 
         $conexao->begin_transaction();
 
-        $sql_pedido = "INSERT INTO pedidos (usuario_id, data_pedido, status) VALUES ('$usuario_id', '$data_pedido', 'pendente')";
+        $sql_pedido = "INSERT INTO pedidos (usuario_id, data_pedido, status) VALUES ('$usuario_id', '$data_pedido', 'Pendente')";
         $result_pedido = $conexao->query($sql_pedido);
 
         if ($result_pedido) {

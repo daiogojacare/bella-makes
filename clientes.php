@@ -105,13 +105,7 @@ $result = $conexao->query($sql);
         </div>
         <div class="dash-content">
             <div class="overview">
-                <a href="#" id="openProductModal" style="text-decoration: none;">
-                    <div class="title">
-                        <i class="uil uil-plus"></i>
-                        <span class="text">Cadastrar Produto</span>
-                    </div>
-                </a>
-                <h2>Produtos Disponíveis</h2>
+                <h2>Clientes</h2>
                 <div class="table-container">
                     <table class="table">
                         <thead>
