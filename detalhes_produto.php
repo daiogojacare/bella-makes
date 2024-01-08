@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
                                     class="nav-link <?php echo ($produto_categoria === 'Acessórios') ? 'active' : ''; ?>"
                                     href="acessórios.php">Acessórios</a></li>
                         </ul>
-                        <form class="d-flex">
+                        <form class="d-flex" action="login.php">
                             <button class="btn btn-outline-dark" id="carrinhoBtn">
                                 <i class="bi-cart-fill me-1"></i>
                                 Carrinho

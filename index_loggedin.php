@@ -171,7 +171,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h1 class="banner_taital">Conheça<br>Bella Makes</h1>
-                                    <div class="buynow_bt"><a href="https://www.instagram.com/gabisantos162023/">Conheça
+                                    <div class="buynow_bt"><a href="https://www.instagram.com/gabisantos162023/" target="_blank">Conheça
                                             Agora</a></div>
                                 </div>
                             </div>
