@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
         <div class="text-center mt-4 name" style="text-align: center; margin-top: 5px;">
             Bella Makes
         </div>
-        <form class="p-3 mt-3" action="registrar.php" method="POST">
+        <form class="p-3 mt-3" action="registrar.php" method="POST" onsubmit="return validarTelefone()">
             <?php if (!empty($error_message)): ?>
                 <p style="color: red; text-align: center;">
                     <?php echo $error_message; ?>
@@ -76,8 +76,9 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
+                <input type="hidden" id="codigo_pais" value="(+55)">
                 <input type="text" name="telefone" id="user__telefone" placeholder="Telefone ou Celular"
-                    autocomplete="off" required value="(+55)">
+                    autocomplete="off" required oninput="atualizarCampo()">
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
@@ -91,6 +92,39 @@ if (isset($_POST['submit'])) {
             Já possui conta? <a href="login.php">Entre Aqui</a>
         </div>
     </div>
+    <script>
+        function atualizarCampo() {
+            var codigoPais = document.getElementById('codigo_pais').value;
+            var campoTelefone = document.getElementById('user__telefone');
+
+            if (!campoTelefone.value.startsWith(codigoPais)) {
+                campoTelefone.value = codigoPais;
+            }
+        }
+    </script>
+    <script>
+        function validarTelefone() {
+            var campoTelefone = document.getElementById('user__telefone');
+            var numeroTelefone = campoTelefone.value.replace(/\D/g, '');
+
+            if (numeroTelefone.length !== 13) {
+                alert('O número de telefone deve conter 13 dígitos.');
+                return false; 
+            }
+
+            return true; 
+        }
+
+        function atualizarCampo() {
+            var codigoPais = document.getElementById('codigo_pais').value;
+            var campoTelefone = document.getElementById('user__telefone');
+
+            if (!campoTelefone.value.startsWith(codigoPais)) {
+                campoTelefone.value = codigoPais;
+            }
+        }
+    </script>
+
 
 </body>
 
