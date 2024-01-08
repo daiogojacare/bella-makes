@@ -64,7 +64,7 @@ if ($stmt) {
     <link rel="icon" href="assets/images/icon.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
     <style>
-        .btn-secondary {
+        .btn-primary {
             display: inline-block;
             padding: 10px 20px;
             text-decoration: none;
@@ -78,7 +78,7 @@ if ($stmt) {
             letter-spacing: 1.3px;
         }
 
-        .btn-secondary:hover {
+        .btn-primary:hover {
             background-color: #503737;
         }
 
@@ -110,7 +110,7 @@ if ($stmt) {
 
 <body>
     <div class="text-center mt-3">
-        <a href="index_loggedin.php" class="btn btn-secondary voltar">Voltar</a>
+        <a href="index_loggedin.php" class="btn btn-primary voltar">Voltar</a>
     </div>
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
@@ -142,17 +142,39 @@ if ($stmt) {
                                 <label class="labels">Nova Senha</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" name="nova_senha" id="senhaInput">
-                                    <button type="button" class="btn btn-outline-secondary" id="showPasswordBtn">Mostrar
+                                    <button type="button" class="btn btn-outline-primary" id="showPasswordBtn">Mostrar
                                         Senha</button>
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" name="action" value="edit_profile">
                         <div class="mt-5 text-center">
-                            <button class="btn btn-secondary" type="submit" name="submit">Salvar</button>
+                            <button id="deleteAccountBtn" class="btn btn-primary">Deletar Conta</button>
+                            <button class="btn btn-primary" type="submit" name="submit">Salvar</button>
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAccountModalLabel">Confirmação de Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza de que deseja excluir sua conta?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form action="forms/delete_user.php" method="post">
+                        <input type="hidden" name="user" value="<?php echo $user; ?>">
+                        <button type="submit" class="btn btn-danger" name="delete_account">Excluir Conta</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -192,5 +214,18 @@ if (!empty($novaSenha)) {
     <?php
 }
 ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('deleteAccountBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            var myModal = new bootstrap.Modal(document.getElementById('deleteAccountModal'), {
+                keyboard: false
+            });
+            myModal.show();
+        });
+    });
+</script>
+
 
 </html>
