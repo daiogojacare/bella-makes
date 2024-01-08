@@ -144,7 +144,7 @@ if (isset($_GET['id'])) {
                 <div class="container">
                     <div class="footer_logo"><a href="index_loggedin.php"><img src="assets/images/bellamakes.png"
                                 style="width: 20%; height: auto;"></a></div>
-                    <div class="location_main">Número: <a href="#">+55 (48) 9 1234-5678</a></div>
+                    <div class="location_main">Número: <a href="https://wa.me/5548999198918">+55 (48) 9 9919-8918</a></div>
                 </div>
             </div>
             <div class="copyright_section">
