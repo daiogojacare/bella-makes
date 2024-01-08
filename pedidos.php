@@ -98,7 +98,13 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                                 while ($row_pedido_usuario = $result_pedidos_usuarios->fetch_assoc()) {
                                     if ($lastUserId !== $row_pedido_usuario['id_usuarios']) {
                                         if ($lastUserId !== null) {
+                                            echo '<div class="product-details" data-user-id="' . $lastUserId . '" style="display: none;">';
+                                            echo 'Preço Total do Pedido: <strong>R$ ' . number_format($total_pedido, 2, ',', '.') . '</strong>';
+                                            echo '</div>';
                                         }
+
+                                        $total_pedido = 0;
+
                                         echo '<tr>';
                                         echo '<td>' . $row_pedido_usuario['nome_usuario'] . '</td>';
                                         echo '<td>' . $row_pedido_usuario['telefone_usuario'] . '</td>';
@@ -111,14 +117,18 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                                     echo 'Produto: ' . $row_pedido_usuario['nome_produto'] . '<br>';
                                     echo 'Quantidade: ' . $row_pedido_usuario['quantidade_produto'] . '<br>';
                                     $subtotal_produto = $row_pedido_usuario['preco_unitario_produto'] * $row_pedido_usuario['quantidade_produto'];
-                                    echo 'SubTotal: ' . number_format($subtotal_produto, 2, ',', '.') . '<br>'; 
+                                    $total_pedido += $subtotal_produto; // Soma o subtotal ao total do pedido
+                                    echo 'SubTotal: ' . number_format($subtotal_produto, 2, ',', '.') . '<br>';
                                     echo '</div>';
-
 
                                     $lastUserId = $row_pedido_usuario['id_usuarios'];
                                 }
+                                if ($lastUserId !== null) {
+                                    echo '<div class="product-details" data-user-id="' . $lastUserId . '" style="display: none;">';
+                                    echo 'Preço Total do Pedido: <strong>R$ ' . number_format($total_pedido, 2, ',', '.') . '</strong>';
+                                    echo '</div>';
+                                }
                                 ?>
-
                             </tbody>
                         </table>
                     </div>
@@ -140,7 +150,6 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
                 </div>
             </div>
         </div>
-
 
         <script src="assets/js/adm.js"></script>
         <script>
