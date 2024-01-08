@@ -72,7 +72,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
-                <input type="text" name="email" id="user__email" placeholder="Email" autocomplete="off" required>
+                <input type="email" name="email" id="user__email" placeholder="Email" autocomplete="off" required>
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>

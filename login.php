@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn mt-3" name="submit">Entrar</button>
         </form>
         <div class="text-center fs-6 mt-3" style="text-align: center; margin-top: 5px;">
-            <a href="#">Esqueceu sua senha?</a> ou <a href="registrar.php">Registrar</a>
+            <a href="forms/recuperar_senha.php">Esqueceu sua senha?</a> ou <a href="registrar.php">Registrar</a>
         </div>
     </div>
 </body>
