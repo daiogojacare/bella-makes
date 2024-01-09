@@ -1,5 +1,4 @@
 <?php
-
 $error_message = '';
 
 if (isset($_POST['submit'])) {
@@ -8,6 +7,7 @@ if (isset($_POST['submit'])) {
     $user = mysqli_real_escape_string($conexao, $_POST['user']);
     $nome = mysqli_real_escape_string($conexao, $_POST['nome']);
     $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
+    $senha_confirmar = mysqli_real_escape_string($conexao, $_POST['confirmar_senha']);
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
     $email = mysqli_real_escape_string($conexao, $_POST['email']);
     $telefone = mysqli_real_escape_string($conexao, $_POST['telefone']);
@@ -22,6 +22,8 @@ if (isset($_POST['submit'])) {
         $error_message = "Usuário já está cadastrado.";
     } elseif ($email_exists > 0) {
         $error_message = "Email já está cadastrado.";
+    } elseif ($senha !== $senha_confirmar) {
+        $error_message = "As senhas não coincidem. Por favor, tente novamente.";
     } else {
         $result = mysqli_query($conexao, "INSERT INTO usuarios(user,nome,senha,nivel_acesso,email,telefone) 
             VALUES ('$user','$nome','$senha_hash','usuario','$email','$telefone')");
@@ -83,7 +85,11 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
-                <input type="password" name="senha" id="login__password" placeholder="Senha">
+                <input type="password" name="senha" id="login__password" placeholder="Senha" required>
+            </div>
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                <input type="password" name="confirmar_senha" id="confirmar__password" placeholder="Confirme a Senha" required>
             </div>
             <input type="hidden" class="input" id="user_nivel_acesso" autocomplete="on" name="nivel_acesso"
                 value="usuario" required>
@@ -102,30 +108,19 @@ if (isset($_POST['submit'])) {
                 campoTelefone.value = codigoPais;
             }
         }
-    </script>
-    <script>
+
         function validarTelefone() {
             var campoTelefone = document.getElementById('user__telefone');
             var numeroTelefone = campoTelefone.value.replace(/\D/g, '');
 
             if (numeroTelefone.length !== 13) {
-                alert('O número de telefone deve conter 13 dígitos.');
+                alert('O número de telefone deve conter 11 dígitos.');
                 return false; 
             }
 
             return true; 
         }
-
-        function atualizarCampo() {
-            var codigoPais = document.getElementById('codigo_pais').value;
-            var campoTelefone = document.getElementById('user__telefone');
-
-            if (!campoTelefone.value.startsWith(codigoPais)) {
-                campoTelefone.value = codigoPais;
-            }
-        }
     </script>
-
 
 </body>
 
