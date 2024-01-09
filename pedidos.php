@@ -182,7 +182,7 @@ if (isset($_SESSION['user']) && $_SESSION['nivel_acesso'] === 'adm') {
 
     <?php
 } else {
-    header("Location: forms/login.php");
+    header("Location: login.php");
     exit();
 }
 ?>

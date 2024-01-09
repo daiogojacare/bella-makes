@@ -141,7 +141,8 @@ $categorias = array($categoriaDesejada);
                                             </span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" href="user.php">Editar</a>
+                                            <a class="dropdown-item" href="pedidos_user.php">Meus Pedidos</a>
+                                            <a class="dropdown-item" href="editar_perfil.php">Editar Perfil</a>
                                             <a class="dropdown-item" href="forms/sair.php">Sair</a>
                                         </div>
                                     <?php endif; ?>
