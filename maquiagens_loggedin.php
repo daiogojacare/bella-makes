@@ -213,7 +213,7 @@ $categorias = array($categoriaDesejada);
                                             <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
                                         </div>
                                         <div class="btn_main">
-                                            <div class="buy_bt"><a href="carrinho.php">Compre Agora</a></div>
+                                            <div class="buy_bt"><a href="forms/adicionar_carrinho.php">Compre Agora</a></div>
                                             <div class="seemore_bt"><a
                                                     href="detalhes_produto_loggedin.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
                                         </div>
