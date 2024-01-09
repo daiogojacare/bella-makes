@@ -123,11 +123,15 @@ $categorias = array($categoriaDesejada);
                     <div class="header_box">
                         <div class="login_menu">
                             <ul>
-                                <li><a href="login.php">
+                                <li>
+                                    <a href="carrinho.php">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        <span class="padding_10">Carrinho</span></a>
+                                        <span class="padding_10">Carrinho
+                                            <?php echo isset($_SESSION['user']) && isset($_SESSION['carrinho'][$_SESSION['user']]) ? '(' . count($_SESSION['carrinho'][$_SESSION['user']]) . ')' : ''; ?>
+                                        </span>
+                                    </a>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdownuser">
                                     <?php if (isset($_SESSION['user'])): ?>
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -137,6 +141,7 @@ $categorias = array($categoriaDesejada);
                                             </span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="user.php">Editar</a>
                                             <a class="dropdown-item" href="forms/sair.php">Sair</a>
                                         </div>
                                     <?php endif; ?>
@@ -213,9 +218,12 @@ $categorias = array($categoriaDesejada);
                                             <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
                                         </div>
                                         <div class="btn_main">
-                                            <div class="buy_bt"><a href="forms/adicionar_carrinho.php">Compre Agora</a></div>
+                                            <div class="buy_bt">
+                                                <a href="forms/adicionar_carrinho.php?produto_id=<?php echo $row['id_produtos']; ?>&produto_preco=<?php echo $row['preco']; ?>">Compre Agora</a>
+                                            </div>
                                             <div class="seemore_bt"><a
-                                                    href="detalhes_produto_loggedin.php?id=<?php echo $row['id_produtos']; ?>">Mais</a></div>
+                                                    href="detalhes_produto_loggedin.php?id=<?php echo $row['id_produtos']; ?>">Mais</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
