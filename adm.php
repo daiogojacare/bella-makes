@@ -195,7 +195,7 @@ $result = $conexao->query($sql);
                             <div class="form-group">
                                 <label for="user_imagem">Imagem:</label>
                                 <input type="file" class="form-control-file" id="user_imagem" name="imagem"
-                                    accept="image/*">
+                                    accept="image/*">(imagem deve ter 700x650px)
                             </div>
                             <div class="form-group">
                                 <label for="user_nome">Nome:</label>
