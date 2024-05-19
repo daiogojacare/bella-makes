@@ -43,7 +43,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesoeet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
         media="screen">
 

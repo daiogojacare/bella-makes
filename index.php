@@ -1,15 +1,16 @@
 <?php
 include('forms/config.php');
 
-function getProdutosByCategoria($conexao, $categoria)
+function getProdutosByCategoria($conexao, $categoria, $limit = 3)
 {
-    $sql = "SELECT * FROM produtos WHERE categoria = '$categoria' ORDER BY id_produtos DESC";
-    $result = $conexao->query($sql);
+    $stmt = $conexao->prepare("SELECT * FROM produtos WHERE categoria = ? ORDER BY id_produtos DESC LIMIT ?");
+    $stmt->bind_param("si", $categoria, $limit);
+    $stmt->execute();
+    $result = $stmt->get_result();
     return $result;
 }
 
 $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
-
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +20,7 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <title>Bella Makes</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
@@ -36,10 +33,9 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesoeet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
         media="screen">
-
     <style>
         .product_image {
             text-align: center;
@@ -169,47 +165,34 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                 <div class="fashion_section_2">
                     <div class="row">
                         <?php
-                        $categorias = array();
-
-                        $limit = 3;
-
                         $produtos = getProdutosByCategoria($conexao, $categoria);
                         if ($produtos->num_rows > 0) {
-                            $counter = 0;
                             while ($row = $produtos->fetch_assoc()) {
-                                if ($counter < $limit) {
-                                    ?>
-                                    <div class="col-lg-4 col-sm-4">
-                                        <div class="box_main">
-                                            <h4 class="shirt_text">
-                                                <?php echo $row['nome']; ?>
-                                            </h4>
-                                            <p class="price_text">Preço <span style="color: #262626;">
-                                                    <?php echo 'R$' . $row['preco']; ?>
-                                                </span></p>
-                                            <div class="product_image">
-                                                <img src="<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
-                                            </div>
-                                            <div class="btn_main">
-                                                <div class="buy_bt"><a
-                                                        href="forms/adicionar_carrinho.php?produto_id=<?php echo $row['id_produtos']; ?>&produto_preco=<?php echo $row['preco']; ?>">
-                                                        Adicionar ao Carrinho
-                                                    </a>
-                                                </div>
-                                                <div class="seemore_bt"><a
-                                                        href="detalhes_produto.php?id=<?php echo $row['id_produtos']; ?>">Mais</a>
-                                                </div>
-                                            </div>
+                                ?>
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="box_main">
+                                        <h4 class="shirt_text">
+                                            <?php echo htmlspecialchars($row['nome']); ?>
+                                        </h4>
+                                        <p class="price_text">Preço <span style="color: #262626;">
+                                                <?php echo 'R$' . number_format($row['preco'], 2, ',', '.'); ?>
+                                            </span></p>
+                                        <div class="product_image">
+                                            <img src="<?php echo htmlspecialchars($row['imagem']); ?>" alt="<?php echo htmlspecialchars($row['nome']); ?>">
                                         </div>
-                                        <div class="seemore_bt">
-                                            <a href="<?php echo strtolower($categoria) . '.php'; ?>">Ver mais</a>
+                                        <div class="btn_main">
+                                            <div class="buy_bt"><a
+                                                    href="forms/adicionar_carrinho.php?produto_id=<?php echo $row['id_produtos']; ?>&produto_preco=<?php echo $row['preco']; ?>">
+                                                    Adicionar ao Carrinho
+                                                </a>
+                                            </div>
+                                            <div class="seemore_bt"><a
+                                                    href="detalhes_produto.php?id=<?php echo $row['id_produtos']; ?>">Mais</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <?php
-                                    $counter++;
-                                } else {
-                                    break;
-                                }
+                                </div>
+                                <?php
                             }
                         } else {
                             ?>
@@ -217,6 +200,9 @@ $categorias = array('Roupas', 'Maquiagens', 'Acessórios');
                             <?php
                         }
                         ?>
+                    </div>
+                    <div class="seemore_bt">
+                        <a href="<?php echo strtolower($categoria) . '.php'; ?>">Ver mais</a>
                     </div>
                 </div>
             </div>
